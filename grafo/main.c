@@ -1,4 +1,5 @@
 #include "g.h"
+#include "graphtodot.h"
 
 //MAIN DE TESTES DE CRIAÇÃO
 int main(){
@@ -33,5 +34,6 @@ int main(){
         AT = AT->prox;
    }
 
+    generateDot(grafo.listaV.inicio);
    return 0;
 }

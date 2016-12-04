@@ -1,15 +1,11 @@
+#ifndef G_H_
+#define G_H_
+
 #include <stdio.h>
 #include <stdlib.h>
 
 struct lista_de_arestas;
-stru;
 
-int estaVazioV(V*);
-v cria_vertice(int);
-void insere_vertice(lista_de_vertices*, v*);
-a cria_aresta(v*);
-int estaVazioA(A*);
-void insere_aresta(A*, v*, a*);
 
 //DEFINIÇÃO DO VÉRTICE DO GRAFO
 typedef struct vertice {
@@ -38,3 +34,11 @@ typedef struct GRAFO{
 } G;
 
 
+int estaVazioV(V*);
+v cria_vertice(int);
+void insere_vertice(V*, v*);
+a cria_aresta(v*);
+int estaVazioA(A*);
+void insere_aresta(A*, v*, a*);
+
+#endif
