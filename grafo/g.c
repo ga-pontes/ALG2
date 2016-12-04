@@ -4,22 +4,24 @@
 struct lista_de_arestas;
 stru;
 
+//DEFINIÇÃO DO VÉRTICE DO GRAFO
 typedef struct vertice {
-    int i;
-    struct lista_de_arestas *A;
-    struct vertice *prox;
+    int i; //EXEMPLO DE CONTEÚDO
+    struct lista_de_arestas *A; //ENDERÇO DA LISTA DE ARESTAS DESTE VÉRICE
+    struct vertice *prox; //PRÓX VERTICE DO GRAFO
 } v;
 
 typedef struct aresta {
-   v* destino;
-   struct aresta *prox;
+   v* destino; //DESTINO DA ARESTA (UMA DIMENSÃO)
+   struct aresta *prox; //PROX ARESTA DA LISTA DE ARESTAS
 } a;
 
 
 typedef struct lista_de_arestas{
-    a* inicio;
+    a* inicio; //INICIO DA LISTA
 } A;
 
+//FUNÇÃO PARA CRIAR NOVO VÉRTICE
 v cria_vertice(int n){
     v novo;
     novo.i = n;
@@ -32,9 +34,10 @@ v cria_vertice(int n){
 }
 
 typedef struct lista_de_vertices{
-    v* inicio;
+    v* inicio; //INICIO DA LISTA
 } V;
 
+//VERIFICA SE A LISTA DE VERTICES ESTA VAZIA
 int estaVazioV(V *LV){
     if(LV->inicio == NULL){
         printf("LV vazia.\n");
@@ -44,6 +47,7 @@ int estaVazioV(V *LV){
     return 0;
 }
 
+//INSERE NOVO VERTICE NA LISTA DE VERTICES
 void insere_vertice(struct lista_de_vertices *LV, v *novo){
     if(estaVazioV(LV)){
         LV->inicio = (v*) malloc (1 * sizeof(v));
@@ -63,12 +67,12 @@ void insere_vertice(struct lista_de_vertices *LV, v *novo){
     printf("Vertice %d inserido no grafo.\n", novo->i);
 }
 
-
+//GRAFO(LISTA DE VERTICES E LISTAS DE ARESTAS)
 typedef struct GRAFO{
     V listaV;
 } G;
 
-
+//FUNÇÃO PARA CRIAR UMA NOVA ARESTA
 a cria_aresta(v *destino){
     a novo;
     novo.prox = NULL;
@@ -77,7 +81,7 @@ a cria_aresta(v *destino){
     return novo;
 }
 
-
+//VERIFICA SE A LISTA DE ARESTA ESTA VAZIA
 int estaVazioA(A *LA){
     if(LA->inicio == NULL){
         return 1;
@@ -85,6 +89,7 @@ int estaVazioA(A *LA){
     return 0;
 }
 
+//FUNÇÃO PARA INSERIR UMA ARESTA NUMA LISTA
 void insere_aresta(A *LA, v *origem, a *novo){
     if(estaVazioA(LA)){
         printf("Lista de arestas estava vazia.\n");
@@ -103,6 +108,7 @@ void insere_aresta(A *LA, v *origem, a *novo){
     printf("Aresta %d -> %d inserida no grafo.\n", origem->i, novo->destino->i);
 }
 
+//MAIN DE TESTES DE CRIAÇÃO
 int main(){
    G grafo;
    grafo.listaV.inicio = NULL;
