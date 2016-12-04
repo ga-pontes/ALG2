@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1480806744 source:c:\users\gabriel pontes\desktop\alg2\grafo\g.cpp
+	<stdio.h>
+	<stdlib.h>
+
+1480820725 source:c:\users\gabriel pontes\desktop\alg2\grafo\g.c
+	<stdio.h>
+	<stdlib.h>
+
