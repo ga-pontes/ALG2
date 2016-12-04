@@ -39,6 +39,6 @@ v cria_vertice(int);
 void insere_vertice(V*, v*);
 a cria_aresta(v*);
 int estaVazioA(A*);
-void insere_aresta(A*, v*, a*);
+void insere_aresta(v*, a*);
 
 #endif

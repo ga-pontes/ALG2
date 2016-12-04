@@ -1,1 +1,14 @@
-EsseVertice ->  ProxVertice
+digraph G {
+Vertice0 ->  Vertice1;
+Vertice0 ->  Vertice2;
+Vertice1;
+Vertice2 ->  Vertice5;
+Vertice3 ->  Vertice4;
+Vertice3 ->  Vertice3;
+Vertice4;
+Vertice5;
+Vertice6;
+Vertice7;
+Vertice8;
+Vertice9;
+}

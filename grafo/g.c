@@ -60,7 +60,8 @@ int estaVazioA(A *LA){
 }
 
 //FUNÇÃO PARA INSERIR UMA ARESTA NUMA LISTA
-void insere_aresta(A *LA, v *origem, a *novo){
+void insere_aresta(v *origem, a *novo){
+    A* LA = origem->A;
     if(estaVazioA(LA)){
         printf("Lista de arestas estava vazia.\n");
         LA->inicio = (a*) malloc (1 * sizeof(a));

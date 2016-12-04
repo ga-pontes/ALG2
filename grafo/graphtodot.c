@@ -4,15 +4,18 @@
 void generateDot(v * vertice){
     FILE * dotFile = fopen("dotFile.dot", "w+");
     a* aresta;
+    fprintf(dotFile, "digraph G {\n");
     while(vertice != NULL){
         aresta = vertice->A->inicio;
-        while(aresta != NULL){
-            fprintf(dotFile, "EsseVertice -> ");
-            fprintf(dotFile, " ProxVertice\n");
+        if(aresta == NULL){
+            fprintf(dotFile, "Vertice%d;\n", vertice->i);
+        } else while(aresta != NULL){
+            fprintf(dotFile, "Vertice%d -> ", vertice->i);
+            fprintf(dotFile, " Vertice%d;\n", aresta->destino->i);
             aresta = aresta->prox;
-            aresta = NULL;
         }
         vertice = vertice->prox;
     }
+    fprintf(dotFile, "}");
     fclose(dotFile);
 }

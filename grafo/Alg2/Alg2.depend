@@ -1,16 +1,16 @@
 # depslib dependency file v1.0
-1480827772 source:c:\users\andre\desktop\alg2\grafo\g.c
+1480831451 source:c:\users\andre\desktop\alg2\grafo\g.c
 	"g.h"
 
-1480829647 c:\users\andre\desktop\alg2\grafo\g.h
+1480831442 c:\users\andre\desktop\alg2\grafo\g.h
 	<stdio.h>
 	<stdlib.h>
 
-1480830571 source:c:\users\andre\desktop\alg2\grafo\main.c
+1480832438 source:c:\users\andre\desktop\alg2\grafo\main.c
 	"g.h"
 	"graphtodot.h"
 
-1480830373 source:c:\users\andre\desktop\alg2\grafo\graphtodot.c
+1480832624 source:c:\users\andre\desktop\alg2\grafo\graphtodot.c
 	"graphtodot.h"
 	<stdlib.h>
 

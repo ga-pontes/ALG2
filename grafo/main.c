@@ -22,10 +22,16 @@ int main(){
         v_aux = *(v_aux.prox);
    }
 
+   a aresta4 = cria_aresta(grafo.listaV.inicio->prox->prox->prox->prox);
+   a aresta3 = cria_aresta(grafo.listaV.inicio->prox->prox->prox);
+   a aresta5 = cria_aresta(grafo.listaV.inicio->prox->prox->prox->prox->prox);
    a aresta_teste = cria_aresta(grafo.listaV.inicio->prox);
-   insere_aresta(grafo.listaV.inicio->A, grafo.listaV.inicio, &aresta_teste);
+   insere_aresta(grafo.listaV.inicio, &aresta_teste);
    aresta_teste = cria_aresta(grafo.listaV.inicio->prox->prox);
-   insere_aresta(grafo.listaV.inicio->A, grafo.listaV.inicio, &aresta_teste);
+   insere_aresta(grafo.listaV.inicio, &aresta_teste);
+   insere_aresta(grafo.listaV.inicio->prox->prox, &aresta5);
+   insere_aresta(grafo.listaV.inicio->prox->prox->prox, &aresta4);
+   insere_aresta(grafo.listaV.inicio->prox->prox->prox, &aresta3);
 
     printf("\n");
    a *AT = grafo.listaV.inicio->A->inicio;
