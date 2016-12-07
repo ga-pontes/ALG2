@@ -18,3 +18,22 @@
 	"g.h"
 	<stdio.h>
 
+1481084206 source:c:\users\gabriel pontes\documents\github\alg2\grafo\g.c
+	"g.h"
+
+1481083987 c:\users\gabriel pontes\documents\github\alg2\grafo\g.h
+	<stdio.h>
+	<stdlib.h>
+
+1481070844 source:c:\users\gabriel pontes\documents\github\alg2\grafo\graphtodot.c
+	"graphtodot.h"
+	<stdlib.h>
+
+1481070844 c:\users\gabriel pontes\documents\github\alg2\grafo\graphtodot.h
+	"g.h"
+	<stdio.h>
+
+1481083820 source:c:\users\gabriel pontes\documents\github\alg2\grafo\main.c
+	"g.h"
+	"graphtodot.h"
+

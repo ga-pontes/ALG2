@@ -3,25 +3,30 @@
 
 //MAIN DE TESTES DE CRIAÇÃO
 int main(){
-   G grafo;
-   grafo.listaV.inicio = NULL;
-   //grafo.listaA.inicio = NULL;
+    G grafo;
+    grafo.listaV.inicio = NULL;
 
-   int i;
-   v v_aux;
+    v v_teste = cria_vertice(0, "ABCDE");
+    insere_vertice(&(grafo.listaV), &v_teste);
 
-   for(i = 0; i < 10; i++){
-        v_aux = cria_vertice(i);
-        insere_vertice(&(grafo.listaV), &v_aux);
-   }
+    V nova_lista = *(gera_permutacao(&v_teste));
+    (grafo.listaV.inicio)->prox = nova_lista.inicio;
 
-   printf("\n");
-   v_aux = *(grafo.listaV.inicio);
-   for(i = 0; i < 9; i++){
-        printf("Vertice %d esta no grafo.\n", v_aux.i);
-        v_aux = *(v_aux.prox);
-   }
+    V nova_lista2 = *gera_permutacao(nova_lista.inicio) ;
+    (grafo.listaV.inicio)->prox->prox->prox->prox->prox->prox = nova_lista2.inicio;
 
+    v* aux = grafo.listaV.inicio;
+    while(aux != NULL){
+        int it;
+        puts(aux->sigla);
+        aux = aux->prox;
+    }
+
+    GG(&grafo);
+
+
+
+   /*
    a aresta4 = cria_aresta(grafo.listaV.inicio->prox->prox->prox->prox);
    a aresta3 = cria_aresta(grafo.listaV.inicio->prox->prox->prox);
    a aresta5 = cria_aresta(grafo.listaV.inicio->prox->prox->prox->prox->prox);
@@ -41,5 +46,7 @@ int main(){
    }
 
     generateDot(grafo.listaV.inicio);
+
+    */
    return 0;
 }
