@@ -1,8 +1,25 @@
 #include "g.h"
 #include "graphtodot.h"
+#include "dimensao.h"
 
+#define N_DIM 5
 //MAIN DE TESTES DE CRIAÇÃO
 int main(){
+    dimensao * dimensoes = (dimensao *) malloc(N_DIM*sizeof(dimensao));
+    int dimCount = 0;
+    criarDimensao("Tempo", dimensoes, dimCount);
+    dimCount++;
+    criarDimensao("Trabalho", dimensoes, dimCount);
+    dimCount++;
+    criarDimensao("Trapezio", dimensoes, dimCount);
+    dimCount++;
+    criarDimensao("Trocadilho", dimensoes, dimCount);
+    dimCount++;
+    criarDimensao("Tropa", dimensoes, dimCount);
+    dimCount++;
+    criarDimensao("Elefante", dimensoes, dimCount);
+    dimCount++;
+    criarDimensao("Atro", dimensoes, dimCount);
    G grafo;
    grafo.listaV.inicio = NULL;
    //grafo.listaA.inicio = NULL;
