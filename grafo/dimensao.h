@@ -1,12 +1,11 @@
 #ifndef _DIMENSAO_H
 #define _DIMENSAO_H
 
-
-
 //Estrutura que receberá as dimensões
 typedef struct dimensao {
+    int numAtributos;
     char nome[15];
-    char sigla[2];
+    char sigla[3];
     struct atributo * atributos;
 } dimensao;
 
@@ -17,7 +16,9 @@ typedef struct atributo {
     char sigla[3];
 } atributo;
 
-char * gerarSiglaDim(dimensao *dimensoes, int n, char nome[15]);
-void criarDimensao(char nome[15], dimensao * dimensoes, int n);
+char * gerarSigla(dimensao *dimensoes, int n, char nome[16]);
+void criarDimensao(char nome[15], dimensao * dimensoes, int n, int maxAtributos);
+char * gerarSiglaAtrib(atributo * atributos, int n, char nome[16]);
+void inserirAtributo(char nome[16], dimensao * dim);
 
 #endif // _DIMENSAO_H
