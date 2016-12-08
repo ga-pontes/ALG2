@@ -10,7 +10,7 @@ int main(){
     char tecla;
     FILE * teste = NULL;
     //Vetor de dimensoes
-    lista_de_dimensao * dimensoes;
+    lista_de_dimensao * lista_dimensoes;
     do{
         printf("Selecione a opcao desejada pelo teclado:\n\n");
         printf("1) Novo Grafo de Derivacao\n");
@@ -23,8 +23,10 @@ int main(){
         scanf("%c", &tecla);
         switch(tecla){
         case '1':
-            dimensoes = registrarDados(stdin); //Retorna a lista de dimensoes que sera gerada e salva.
+            lista_dimensoes = registrarDados(stdin); //Retorna a lista de dimensoes que sera gerada e salva.
             //Criar grafo com essa lista.
+            //Exemplo de acesso:
+            printf("Nome da dimensao em [0]: %s", lista_dimensoes->dimensoes[0].nome);
             break;
         case '2':
             recuperarDados(stdin);
@@ -44,7 +46,7 @@ int main(){
                 printf("Arquivo nulo");
                 return -1;
             } else {
-                dimensoes = registrarDados(teste);
+                lista_dimensoes = registrarDados(teste);
                 fclose(teste);
                 printf("Teste carregado!");
             }
@@ -53,7 +55,7 @@ int main(){
 
     } while(tecla != '6');
 
-    free(dimensoes);
+    free(lista_dimensoes);
    return 0;
 }
 
