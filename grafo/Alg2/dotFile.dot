@@ -1,14 +1,19 @@
 digraph G {
-Vertice0 ->  Vertice1;
-Vertice0 ->  Vertice2;
-Vertice1;
-Vertice2 ->  Vertice5;
-Vertice3 ->  Vertice4;
-Vertice3 ->  Vertice3;
-Vertice4;
-Vertice5;
-Vertice6;
-Vertice7;
-Vertice8;
-Vertice9;
+PF ->  MF;
+PF ->  PC;
+MF ->  F;
+MF ->  MC;
+PC ->  MC;
+PC ->  PE;
+F;
+MC ->  C;
+MC ->  ME;
+PE ->  ME;
+PE ->  P;
+C;
+ME ->  E;
+ME ->  M;
+P;
+E;
+M;
 }

@@ -101,6 +101,7 @@ int main(){
             cor = cor->prox;
         }
 
+    generateDot(&vert);
     return 0;
 }
 
