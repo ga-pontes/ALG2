@@ -40,7 +40,6 @@ int salvarDados(dimensao * dimensoes, int numDim);
     retorno: nenhum.
 */
 void printarRegistroFormatado(dimensao d, int n);
-lista_de_dimensao * registrarDados(FILE * fonte);
 void recuperarRegistroN(int n);
 
 #endif // _ARQUIVO_H
