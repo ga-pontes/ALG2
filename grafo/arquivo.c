@@ -30,13 +30,15 @@ void criarGrafo(){
         criarDimensao(nome, dimensoes, i, numAtr);
 
         int j;
+        int prioridade = 0;
         //Coletando informações sobre atributos
         for(j = 0; j < numAtr; j++){
             printf("Digite, em ordem crescente de hierarquia, o nome dos atributos dessa dimensão.\n");
             printf("Atributo %d: \n", j + 1);
             fflush(stdin);
             fgets(nome, 16, stdin);
-            inserirAtributo(nome, &dimensoes[i]);
+            inserirAtributo(nome, &dimensoes[i], prioridade);
+            prioridade++;
         }
     }
     salvarDados(dimensoes, numDim);
@@ -50,13 +52,12 @@ void criarGrafo(){
 */
 void recuperarDados(){
     FILE * arquivo = fopen("dados.bin", "rb");
-    char buffer;
-    int test;
     char bufferNome[16];
     char bufferSigla[3];
     int bufferNumAtrib;
     char bufferNomeAtributo[16];
     char bufferSiglaAtributo[3];
+    int bufferNvHierarquia;
     int i;
     dimensao d;
     char sentinela;
@@ -80,8 +81,10 @@ void recuperarDados(){
         for(i = 0; i < bufferNumAtrib; i++){
             fread(&bufferNomeAtributo, sizeof(bufferNomeAtributo), 1, arquivo);
             fread(&bufferSiglaAtributo, sizeof(bufferSiglaAtributo), 1, arquivo);
+            fread(&bufferNvHierarquia, sizeof(bufferNvHierarquia), 1, arquivo);
             strcpy(d.atributos[i].nome, bufferNomeAtributo);
             strcpy(d.atributos[i].sigla, bufferSiglaAtributo);
+            d.atributos[i].nvl_hierarquia = bufferNvHierarquia;
         }
         counter++;
         printarRegistroFormatado(d, counter);
@@ -99,26 +102,27 @@ void recuperarDados(){
 */
 void recuperarRegistroN(int n){
     FILE * arquivo = fopen("dados.bin", "rb");
-    char buffer;
-    int test;
     char bufferNome[16];
     char bufferSigla[3];
     int bufferNumAtrib;
     char bufferNomeAtributo[16];
     char bufferSiglaAtributo[3];
+    int bufferNvHierarquico;
     int i;
     dimensao d;
     int counter = 0;
-    char sentinela;
+    char sentinela = '|';
     while(!feof(arquivo)){
         if(counter != 0)
             fread(&sentinela, 1, 1, arquivo);
-        if(sentinela == "|")
-            printf("ok!");
+        if(sentinela != '|')
+            printf("Atencao! Leitura de delimitador de fim de registro incorreto.\n");
+
+        //Leitura do numero de atributos do registro de dimensao
         if(!fread(&bufferNumAtrib, sizeof(bufferNumAtrib), 1, arquivo))
             break;
-
         d.numAtributos = bufferNumAtrib;
+
         if(counter == n){
             fread(&bufferNome, sizeof(bufferNome), 1, arquivo);
             fread(&bufferSigla, sizeof(bufferSigla), 1, arquivo);
@@ -129,14 +133,17 @@ void recuperarRegistroN(int n){
             for(i = 0; i < bufferNumAtrib; i++){
                 fread(&bufferNomeAtributo, sizeof(bufferNomeAtributo), 1, arquivo);
                 fread(&bufferSiglaAtributo, sizeof(bufferSiglaAtributo), 1, arquivo);
+                fread(&bufferNvHierarquico, sizeof(bufferNvHierarquico), 1, arquivo);
                 strcpy(d.atributos[i].nome, bufferNomeAtributo);
                 strcpy(d.atributos[i].sigla, bufferSiglaAtributo);
+                d.atributos[i].nvl_hierarquia = bufferNvHierarquico;
             }
             printarRegistroFormatado(d, counter);
             counter++;
             free(d.atributos);
+            break;
         } else {
-            fseek(arquivo, sizeof(d.nome) + sizeof(d.sigla) + d.numAtributos*sizeof(atributo) ,SEEK_CUR);
+            fseek(arquivo, sizeof(d.nome) + sizeof(d.sigla) + d.numAtributos*(sizeof(((struct atributo*)0)->nome) + sizeof(((struct atributo*)0)->nvl_hierarquia) + sizeof(((struct atributo*)0)->sigla)),SEEK_CUR);
             counter++;
         }
     }
@@ -166,6 +173,7 @@ int salvarDados(dimensao * dimensoes, int numDim){
         for(j = 0; j < dimensoes[i].numAtributos; j++){
             fwrite(&dimensoes[i].atributos[j].nome, sizeof(dimensoes[i].atributos[j].nome), 1, arquivo);
             fwrite(&dimensoes[i].atributos[j].sigla, sizeof(dimensoes[i].atributos[j].sigla), 1, arquivo);
+            fwrite(&dimensoes[i].atributos[j].nvl_hierarquia, sizeof(int), 1, arquivo);
         }
         fwrite(&delimitador, 1, 1, arquivo);
     }
@@ -196,5 +204,6 @@ void printarRegistroFormatado(dimensao d, int n){
         printf("---> Atributo %d\n", i);
         printf("----Nome: %s", d.atributos[i].nome);
         printf("----Sigla: %s\n", d.atributos[i].sigla);
+        printf("----Nivel Hierarquico: %d\n", d.atributos[i].nvl_hierarquia);
     }
 }

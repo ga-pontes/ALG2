@@ -3,6 +3,7 @@
 #include "dimensao.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 /*Função: recuperarDados
     Descrição:
@@ -39,5 +40,7 @@ int salvarDados(dimensao * dimensoes, int numDim);
     retorno: nenhum.
 */
 void printarRegistroFormatado(dimensao d, int n);
+
+void recuperarRegistroN(int n);
 
 #endif // _ARQUIVO_H

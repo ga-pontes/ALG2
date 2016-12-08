@@ -1,21 +1,23 @@
 # depslib dependency file v1.0
-1480831451 source:c:\users\andre\desktop\alg2\grafo\g.c
+1481163113 source:c:\users\andre\desktop\alg2\grafo\g.c
 	"g.h"
 
-1480831442 c:\users\andre\desktop\alg2\grafo\g.h
+1481163113 c:\users\andre\desktop\alg2\grafo\g.h
 	<stdio.h>
 	<stdlib.h>
+	"dimensao.h"
 
-1481084075 source:c:\users\andre\desktop\alg2\grafo\main.c
+1481163362 source:c:\users\andre\desktop\alg2\grafo\main.c
 	"g.h"
 	"graphtodot.h"
 	"dimensao.h"
+	"arquivo.h"
 
-1481069668 source:c:\users\andre\desktop\alg2\grafo\graphtodot.c
+1481093961 source:c:\users\andre\desktop\alg2\grafo\graphtodot.c
 	"graphtodot.h"
 	<stdlib.h>
 
-1480829699 c:\users\andre\desktop\alg2\grafo\graphtodot.h
+1481093961 c:\users\andre\desktop\alg2\grafo\graphtodot.h
 	"g.h"
 	<stdio.h>
 
@@ -44,13 +46,13 @@
 
 1481083820 t.h"
 
-1481084042 source:c:\users\andre\desktop\alg2\grafo\dimensao.c
+1481164069 source:c:\users\andre\desktop\alg2\grafo\dimensao.c
 	"dimensao.h"
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
 
-1481084008 c:\users\andre\desktop\alg2\grafo\dimensao.h
+1481163113 c:\users\andre\desktop\alg2\grafo\dimensao.h
 
 1481084008 gin/master
 
@@ -61,4 +63,13 @@
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
+
+1481164744 source:c:\users\andre\desktop\alg2\grafo\arquivo.c
+	"arquivo.h"
+
+1481163677 c:\users\andre\desktop\alg2\grafo\arquivo.h
+	"dimensao.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
 
