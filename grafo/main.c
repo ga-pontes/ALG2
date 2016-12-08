@@ -60,7 +60,8 @@ int main(){
             } else {
                 lista_dimensoes = registrarDados(teste);
                 printf("%d\n", lista_dimensoes->totalElementos);
-                gera_grafo_de_dimensoes(lista_dimensoes);
+                gerar_grafo_de_derivacao(lista_dimensoes);
+               // gera_grafo_de_dimensoes(lista_dimensoes);
                 fclose(teste);
                 printf("Teste carregado!");
             }
