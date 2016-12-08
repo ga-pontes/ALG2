@@ -4,7 +4,7 @@
 //Estrutura que receberá as dimensões
 typedef struct dimensao {
     int numAtributos;
-    char nome[15];
+    char nome[16];
     char sigla[3];
     struct atributo * atributos;
 } dimensao;
@@ -12,7 +12,7 @@ typedef struct dimensao {
 
 //Estrutura que receberá os atributos
 typedef struct atributo {
-    char nome[15];
+    char nome[16];
     char sigla[3];
 } atributo;
 
