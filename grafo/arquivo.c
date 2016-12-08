@@ -62,6 +62,32 @@ lista_de_dimensao * registrarDados(FILE * fonte){
     salvarDados(dimensoes, numDim);
     lista->dimensoes = dimensoes;
     lista->tamanho = numDim;
+
+    //Inicializar vetor de siglas:
+    int totalAtribs = 0;
+    for(i = 0; i < numDim; i++){
+        totalAtribs += dimensoes[i].numAtributos;
+    }
+    lista->siglas = malloc((totalAtribs + numDim)*sizeof(char *));
+    for(i = 0; i < (totalAtribs + numDim); i++){
+        lista->siglas[i] = malloc(3*sizeof(char));
+    }
+    int indice = 0;
+    int j;
+    for(i = 0; i < numDim; i++){
+        strcpy(lista->siglas[indice], dimensoes->sigla);
+        indice++;
+        for(j = 0; j < dimensoes[i].numAtributos; j++){
+            strncpy(lista->siglas[indice], dimensoes[i].atributos[j].sigla, 3);
+            indice++;
+        }
+    }
+
+    for(i = 0; i < totalAtribs+numDim; i++)
+        printf("Sigla: %s\n", lista->siglas[i]);
+
+    lista->totalElementos = totalAtribs + numDim;
+
     return lista;
 }
 
