@@ -8,21 +8,26 @@ void printaAjuda();
 int main(){
     int n;
     char tecla;
+    FILE * teste = NULL;
+    //Vetor de dimensoes
+    lista_de_dimensao * dimensoes;
     do{
         printf("Selecione a opcao desejada pelo teclado:\n\n");
         printf("1) Novo Grafo de Derivacao\n");
         printf("2) Recuperar Dimensoes e Atributos Salvos\n");
         printf("3) Recuperar Registro de Numero N (comecando pelo 0)\n");
         printf("4) Ajuda\n");
-        printf("5) Sair\n");
+        printf("5) Executar bateria de testes.\n");
+        printf("6) Sair\n");
         fflush(stdin);
         scanf("%c", &tecla);
         switch(tecla){
         case '1':
-            criarGrafo();
+            dimensoes = registrarDados(stdin); //Retorna a lista de dimensoes que sera gerada e salva.
+            //Criar grafo com essa lista.
             break;
         case '2':
-            recuperarDados();
+            recuperarDados(stdin);
             break;
         case '3':
             printf("Digite o numero do registro que deseja recuperar: \n");
@@ -33,9 +38,22 @@ int main(){
         case '4':
             printaAjuda();
             break;
+        case '5':
+            teste = fopen("test.txt", "r");
+            if(teste == NULL){
+                printf("Arquivo nulo");
+                return -1;
+            } else {
+                dimensoes = registrarDados(teste);
+                fclose(teste);
+                printf("Teste carregado!");
+            }
+            //bateria de testes;
         }
 
-    } while(tecla != '5');
+    } while(tecla != '6');
+
+    free(dimensoes);
    return 0;
 }
 

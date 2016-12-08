@@ -13,13 +13,13 @@
 */
 void recuperarDados();
 
-/*Função criarGrafo
+/*Função registrarDados
     Descrição: obtém do teclado do usuário as informações necessarias para a geração do grafo de derivação.
     Isto é, numero de dimensoes, numero de atributos, nome das dimensoes e nome dos atributos.
     parâmetros: nenhum.
     retorno: nenhum.
 */
-void criarGrafo();
+lista_de_dimensao * registrarDados(FILE * fonte);
 
 
 /*Função: salvarDados()

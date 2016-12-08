@@ -1,53 +1,74 @@
 #include "arquivo.h"
-
-/*Função criarGrafo
+#include <stdlib.h>
+#include <stdio.h>
+/*Função registrarDados
     Descrição: obtém do teclado do usuário as informações necessarias para a geração do grafo de derivação.
     Isto é, numero de dimensoes, numero de atributos, nome das dimensoes e nome dos atributos.
     parâmetros: nenhum.
     retorno: nenhum.
 */
-void criarGrafo(){
+lista_de_dimensao * registrarDados(FILE * fonte){
     int numDim, numAtr;
+
+    lista_de_dimensao * lista = (lista_de_dimensao *) malloc(sizeof(lista_de_dimensao));
+
     //Coletando informações do usuario
-    printf("Digite o numero de dimensoes que o grafo possuirá. \n");
-    fflush(stdin);
-    scanf("%d", &numDim);
+    if(fonte == stdin){
+        printf("Digite o numero de dimensoes que o grafo possuirá. \n");
+        fflush(fonte);
+    }
+    fscanf(fonte, "%d", &numDim);
+
+    if(fonte != stdin)
+        fscanf(fonte, "\n");
 
     //Alocando vetor de dimensoes
     dimensao * dimensoes = (dimensao *) malloc(numDim*sizeof(dimensao));
-
     //Coletando informações sobre as dimensoes
     int i;
     for(i = 0; i < numDim; i++){
-        printf("Digite o nome da dimensao %d\n", i+1);
-        fflush(stdin);
+        if(fonte == stdin)
+            printf("Digite o nome da dimensao %d\n", i+1);
         char nome[16];
-        fflush(stdin);
-        fgets(nome, 16, stdin);
-        printf("Digite a quantidade de atributos dessa dimensao.\n");
-        fflush(stdin);
-        scanf("%d", &numAtr);
+        char bufferLinha[200];
+        if(fonte == stdin)
+            fflush(fonte);
+        fgets(bufferLinha, 200, fonte);
+        strncpy(nome, bufferLinha, 15);
+        nome[15] = '\0';
+        if(fonte == stdin)
+            printf("Digite a quantidade de atributos dessa dimensao.\n");
+        if(fonte == stdin)
+            fflush(fonte);
+        fscanf(fonte, "%d", &numAtr);
+        if(fonte != stdin)
+            fscanf(fonte, "\n");
         criarDimensao(nome, dimensoes, i, numAtr);
-
         int j;
         int prioridade = 0;
         //Coletando informações sobre atributos
         for(j = 0; j < numAtr; j++){
-            printf("Digite, em ordem crescente de hierarquia, o nome dos atributos dessa dimensão.\n");
-            printf("Atributo %d: \n", j + 1);
-            fflush(stdin);
-            fgets(nome, 16, stdin);
+            if(fonte == stdin)
+                printf("Digite, em ordem crescente de hierarquia, o nome dos atributos dessa dimensão.\n");
+            if(fonte == stdin)
+                fflush(fonte);
+            fgets(bufferLinha, 200, fonte);
+            strncpy(nome, bufferLinha, 15);
+            nome[15] = '\0';
             inserirAtributo(nome, &dimensoes[i], prioridade);
             prioridade++;
         }
     }
     salvarDados(dimensoes, numDim);
+    lista->dimensoes = dimensoes;
+    lista->tamanho = numDim;
+    return lista;
 }
 
 /*Função: recuperarDados
     Descrição:
     Permite ao usuario printar na tela todos os dados salvos em modo binario sobre as dimensoes e atributos.
-    parâmetros: nenhum.
+    parâmetros: fonte. Stdin para entrada por teclado ou pode ser arquivo de teste.
     retorno: nenhum.
 */
 void recuperarDados(){
@@ -67,7 +88,7 @@ void recuperarDados(){
             fread(&sentinela, 1, 1, arquivo);
         if(sentinela == '*'){
             while(fread(&sentinela, 1, 1, arquivo) && sentinela != '|');
-        } else if(sentinela != '|' )
+        } else if(sentinela != '|' && counter != 0)
             printf("WARNING: DELIMITADOR DE REGISTRO INCORRETO FOI LIDO!");
         if(!fread(&bufferNumAtrib, sizeof(bufferNumAtrib), 1, arquivo))
             break;
@@ -195,15 +216,15 @@ void printarRegistroFormatado(dimensao d, int n){
     printf("*********************************\n");
     printf("Registro numero %d.\n", n);
     printf("Campos: \n");
-    printf("-Nome: %s", d.nome);
+    printf("-Nome: %s\n", d.nome);
     printf("-Sigla: %s\n", d.sigla);
     printf("-Numero de atributos: %d\n", d.numAtributos);
     printf("-Vetor de atributos: \n");
     int i;
     for(i = 0; i < d.numAtributos; i++){
         printf("---> Atributo %d\n", i);
-        printf("----Nome: %s", d.atributos[i].nome);
+        printf("----Nome: %s\n", d.atributos[i].nome);
         printf("----Sigla: %s\n", d.atributos[i].sigla);
-        printf("----Nivel Hierarquico: %d\n", d.atributos[i].nvl_hierarquia);
+        printf("----Nivel Hierarquico: %d\n\n", d.atributos[i].nvl_hierarquia);
     }
 }
