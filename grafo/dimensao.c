@@ -128,6 +128,14 @@ char * gerarSigla(dimensao *dimensoes, int n, char nome[15]){
                 igual = 1;
                 break;
             }
+            //Para cada dimensao, ve tambem as siglas de seus atributos.
+            int iter;
+            for(iter = 0; iter < dimensoes[i].numAtributos; iter++){
+                if((sigla[0] == dimensoes[i].atributos[iter].sigla[0] && sigla[1] == '\0') || (sigla[0] == dimensoes[i].atributos[iter].sigla[0] && sigla[1] == dimensoes[i].atributos[iter].sigla[1])){
+                    igual = 1;
+                    break;
+                }
+            }
         }
         //A sigla está igual a de outra dimensão e deve ser mudada
         if(igual){
