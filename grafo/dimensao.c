@@ -21,7 +21,6 @@ void criarDimensao(char nome[16], dimensao * dimensoes, int n, int maxAtributos)
     sigla = gerarSigla(dimensoes, n, d.nome);
     strcpy(d.sigla, sigla);
     dimensoes[n] = d;
-    printf("Dimensao %s criada. Sigla: %s\n", nome, d.sigla);
 }
 
 
@@ -34,7 +33,6 @@ void inserirAtributo(char nome[16], dimensao *dim, int nvl){
     a.nvl_hierarquia = nvl;
     dim->atributos[dim->numAtributos] = a;
     dim->numAtributos++;
-    printf("Atributo %s criado. Sigla: %s\n", a.nome, a.sigla);
 }
 
 
