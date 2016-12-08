@@ -16,6 +16,7 @@
 */
 void criarDimensao(char nome[16], dimensao * dimensoes, int n, int maxAtributos){
     dimensao d;
+    d.ID = n+1;
     d.atributos = (atributo *) malloc (maxAtributos * sizeof(atributo));
     d.numAtributos = 0;
     strcpy(d.nome, nome);
@@ -31,7 +32,7 @@ void inserirAtributo(char nome[16], dimensao *dim, int nvl){
     atributo a;
     strcpy(a.nome, nome);
     char * sigla = (char *) malloc(3*sizeof(char));
-    sigla = gerarSiglaAtrib(dim->atributos, dim->numAtributos, nome);
+    sigla = gerarSiglaAtrib(dim->atributos, dim->numAtributos, nome, dim->ID);
     strcpy(a.sigla, sigla);
     a.nvl_hierarquia = nvl;
     dim->atributos[dim->numAtributos] = a;
@@ -42,20 +43,21 @@ void inserirAtributo(char nome[16], dimensao *dim, int nvl){
 /*Funçao gerarSiglaAtrib
 documentar*/
 
-char * gerarSiglaAtrib(atributo * atributos, int n, char nome[16]){
-    char * sigla = (char *) malloc(2*sizeof(char));
+char * gerarSiglaAtrib(atributo * atributos, int n, char nome[16], int ID){
+    char * sigla = (char *) malloc(4*sizeof(char));
 
     //variavel indice mantem registro de qual foi a ultima letra utilizada para gerar sigla.
-    int indice = 0;
+    int indice = 1;
 
     //Por convencao do codigo, nome deve ser preenchido com \0 quando nao existir mais caracteres validos.
-    if(nome[indice] != '\0'){
-        sigla[0] = nome[indice];
-        indice++;
+    if(nome[0] != '\0'){
+        sigla[0] = nome[0];
         sigla[1] = '\0';
         sigla[2] = '\0';
+        sigla[3] = '\0';
         //checa se é primeira dimensao inserida
         if(n == 0){
+            sigla[1] = ID + '0';
             return sigla;
         }
     }
@@ -77,13 +79,11 @@ char * gerarSiglaAtrib(atributo * atributos, int n, char nome[16]){
                 //Usa proxima letra no nome
                 sigla[1] = nome[indice];
                 indice++;
-            } else {
-                //Nao há mais letras no nome da dimensao.
-                sigla[1] = '2';
             }
         } else {
             //Condicao de parada
             siglaCorreta = 1;
+            sigla[2] = ID + '0';
             return sigla;
         }
     }
