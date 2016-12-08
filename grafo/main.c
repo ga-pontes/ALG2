@@ -5,58 +5,66 @@
 
 //MAIN DE TESTES DE CRIAÇÃO
 int main(){
-<<<<<<< HEAD
+//<<<<<<< HEAD
     G grafo;
     grafo.listaV.inicio = NULL;
+    int qd = 0;
 
-    dimensao * dimensoes = (dimensao *) malloc(5*sizeof(dimensao));
+    dimensao * dimensoes = (dimensao*) malloc(5*sizeof(dimensao));
 
-    criarDimensao("Produto", dimensoes, 0, 2);
+    criarDimensao("Produto", dimensoes, 0, 1); qd++;
     inserirAtributo("Marca", &dimensoes[0], 0);
 
-    dimensao F;
-    criarDimensao("Filial", dimensoes, 1, 3);
+    criarDimensao("Filial", dimensoes, 1, 2); qd++;
     inserirAtributo("Cidade", &dimensoes[1], 0);
     inserirAtributo("Estado", &dimensoes[1], 1);
+/*
+    criarDimensao("Tempo", dimensoes, 2, 1); qd++;
+    inserirAtributo("Dia", &dimensoes[2], 0);*/
+
+    //TOTAL DE ELEMENTOS = NRO DE DIMENSOES + NRO DE ATRIBUTOS D1 + NRO AT D2 + NRO AT D3.........
+    int total_de_elementos = 2 + 1 + 2;
+    //CONJUNTO VAZIO É QUANDO UMA SIGLA É ISOLADA DE TODAS AS OUTRAS.
+    //PRECISA SER PASSADO COMO REF PARA SER OPERADO POR FUNCOES EXTERNAS
+    int *conjuntos_vazios_encontrados;
+    conjuntos_vazios_encontrados = (int*) malloc (1 * sizeof(int));
+    *conjuntos_vazios_encontrados = 0;
 
     v vert = cria_vertice(0, "", dimensoes);
-    gerarSigladoVertice(&vert);
-    puts(vert.sigla);
+    vert.i = 0;
+    gerarSigladoVertice(&vert, qd);
 
     v *aux_v = &vert;
-    aux_v->prox = permuta_dim(aux_v)->inicio;
-    while(aux_v != NULL){
-        gerarSigladoVertice(aux_v);
-        puts(aux_v->sigla);
+    v *aux_final;
+
+    while(*conjuntos_vazios_encontrados < total_de_elementos){
+        int contador = 0;
+        aux_final = &vert;
+        while(aux_final->prox != NULL){
+            aux_final = aux_final->prox;
+        }
+        v* aux_v7 = &vert;
+
+        //gera "filhos" do vértice atual no final da lista
+        aux_final->prox = permuta_dim(aux_v, qd, conjuntos_vazios_encontrados)->inicio;
+
+        //passa para o próximo vertice
         aux_v = aux_v->prox;
     }
 
+        remove_duplicata(&vert);
+        remove_duplicata(&vert);
 
-    /*dimensao S;
-    criarDimensao("Tempo", dimensoes, 2, 1);
-    inserirAtributo("Dia", &dimensoes[2], 0);
-
-    v vert = cria_vertice(0, "", dimensoes);
-    gerarSigladoVertice(&vert);
-
-    int a = 0;
-
-    v *aux_v = &vert;
-    while(strlen(aux_v->sigla) > 1){
-        aux_v->prox = permuta_dim(aux_v)->inicio;
-        while(aux_v->prox != NULL){
-            printf("%d\n", a++);
-            gerarSigladoVertice(aux_v);
-            puts(aux_v->sigla);
-            aux_v = aux_v->prox;
+        v* aux_v7 = &vert;
+        while(aux_v7 != NULL){
+            puts(aux_v7->sigla);
+            aux_v7=aux_v7->prox;
         }
+
         printf("\n");
-        gerarSigladoVertice(aux_v);
-        puts(aux_v->sigla);
-    }*/
 
     return 0;
-=======
+/*=======
     int n;
     char tecla;
     do{
@@ -84,5 +92,5 @@ int main(){
 
     } while(tecla != 'q');
    return 0;
->>>>>>> origin/master
+>>>>>>> origin/master*/
 }

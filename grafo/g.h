@@ -21,6 +21,7 @@ typedef struct vertice {
 } v;
 
 typedef struct aresta {
+   v* origem;
    v* destino; //DESTINO DA ARESTA (UMA DIMENSÃO)
    struct aresta *prox; //PROX ARESTA DA LISTA DE ARESTAS
 } a;
@@ -43,13 +44,13 @@ typedef struct GRAFO{
 int estaVazioV(V*);
 v cria_vertice(int n, char *s, dimensao *dim);
 void insere_vertice(V*, v*);
-a cria_aresta(v*);
+a cria_aresta(v* origem, v* destino);
 int estaVazioA(A*);
 void insere_aresta(v*, a*);
 V* gera_permutacao(v *vt);
 int fatorial(int a);
 void GG(G *GRAFO);
-void gerarSigladoVertice(v *vert);
-V* permuta_dim(v *vert);
+void gerarSigladoVertice(v *vert, int qd);
+V* permuta_dim(v *vert, int qd, int *conjuntos_vazios_encontrados);
 void remove_duplicata(v *LV);
 #endif

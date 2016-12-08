@@ -24,7 +24,7 @@ v cria_vertice(int n, char *s, dimensao *dim){
 
     int i;
     for(i = 0; i < 10; i++){
-        novo.nvl_de_cada_dimensao[i] = -1;
+        novo.nvl_de_cada_dimensao[i] = 0;
     }
 
     return novo;
@@ -52,11 +52,12 @@ void insere_vertice(struct lista_de_vertices *LV, v *novo){
 }
 
 //FUNÇÃO PARA CRIAR UMA NOVA ARESTA
-a cria_aresta(v *destino){
+a cria_aresta(v* origem, v *destino){
     a novo;
     novo.prox = NULL;
+    novo.origem = origem;
     novo.destino = destino;
-    printf("\nAresta para %d criada.\n", destino->i);
+    printf("\nAresta de %s para %s criada.\n", origem->sigla, destino->sigla);
     return novo;
 }
 
@@ -100,7 +101,7 @@ V* gera_permutacao(v *vt){
         flag = 0;
         char_atual = 0;
         for(combinador = 0; combinador < strlen(vt->sigla); combinador++){
-            if(isolador != combinador){
+            if(isolador !v* origem, = combinador){
                 nova_combinacao[char_atual] = vt->sigla[combinador];
                 char_atual++;
                 flag = 1;
@@ -136,44 +137,67 @@ void GG(G *GRAFO){
     return;
 }*/
 
-void gerarSigladoVertice(v *vert){
+void gerarSigladoVertice(v *vert, int qd){
+
     char sigla[100];
     sigla[0] = '\0';
-    int i, contador_comb = 0;
-    for(i = 0; i < 10; i++){
-        if(vert->nvl_de_cada_dimensao[i] < vert->dim[i].numAtributos)
-            contador_comb++;
-    }
+    int i;
 
-    for(i = 0; i < contador_comb; i++){
-        if(vert->nvl_de_cada_dimensao[i] == -1){
+    for(i = 0; i < qd; i++){
+        if(vert->nvl_de_cada_dimensao[i] == 0){
             strcat(sigla, vert->dim[i].sigla);
-        } else if((vert->nvl_de_cada_dimensao[i] < vert->dim[i].numAtributos)){
-            strcat(sigla, vert->dim[i].atributos[vert->nvl_de_cada_dimensao[i]].sigla);
+        } else if(vert->nvl_de_cada_dimensao[i] <= vert->dim[i].numAtributos){
+            strcat(sigla, vert->dim[i].atributos[vert->nvl_de_cada_dimensao[i]-1].sigla);
         }
     }
+    //printf("%d\n", strlen(sigla));
     strcpy(vert->sigla, sigla);
 }
 
-V* permuta_dim(v *vert){
-    int it_dim;
-    int aumenta_nvl;
-    int i;
-
+V* permuta_dim(v *vert, int qd, int *conjuntos_vazios_encontrados){
     V nova_lista;
     nova_lista.inicio = NULL;
     v nv;
+    a ar;
 
-    for(it_dim=0; it_dim < 2; it_dim++){
+    /*printf("ESTAMOS NO GERADOR DO NIVEL INFERIOR.\n");
+    printf("Vamos gerar novos filhos para o vertice %s\n", vert->sigla);
+    printf("O vertice esta no seguinte nivel de h: %d %d\n", vert->nvl_de_cada_dimensao[0], vert->nvl_de_cada_dimensao[1]);
+*/
+    int flag_para_gerar_vertice = 0;
 
-        nv = cria_vertice(0, "", vert->dim);
-        for(i = 0; i < 10; i++)
-            nv.nvl_de_cada_dimensao[i] = vert->nvl_de_cada_dimensao[i];
-        nv.nvl_de_cada_dimensao[it_dim]++;
-
-        insere_vertice(&nova_lista, &nv);
-
+    int it_dim;
+    for(it_dim = 0; it_dim < qd; it_dim++){
+        if(vert->nvl_de_cada_dimensao[it_dim] <= vert->dim[it_dim].numAtributos){
+            //printf("atribui, comparando %d %d\n", vert->nvl_de_cada_dimensao[it_dim], vert->dim[it_dim].numAtributos);
+            flag_para_gerar_vertice++;
+        }
     }
+
+    int i;
+    if(flag_para_gerar_vertice > 1){
+        //printf("vertice sera gerado.\n");
+        for(it_dim=0; it_dim < qd; it_dim++){
+            nv = cria_vertice(vert->i + (it_dim+1), "", vert->dim);
+
+            for(i = 0; i < 10; i++)
+                nv.nvl_de_cada_dimensao[i] = vert->nvl_de_cada_dimensao[i];
+            nv.nvl_de_cada_dimensao[it_dim]++;
+           // printf("O novo nivel de h eh: %d %d\n", nv.nvl_de_cada_dimensao[0], nv.nvl_de_cada_dimensao[1]);
+            gerarSigladoVertice(&nv, qd);
+
+            ar = cria_aresta(vert, &nv);
+            insere_aresta(vert, &ar);
+
+           // printf("A sigla do vertice gerado eh: %s\n", nv.sigla);
+            insere_vertice(&nova_lista, &nv);
+        }
+    } else {
+        *conjuntos_vazios_encontrados = *conjuntos_vazios_encontrados + 1;
+        //printf("NAO GEROU VERTICE, %d \n", *conjuntos_vazios_encontrados);
+        ;
+    }
+
     return &nova_lista;
 }
 

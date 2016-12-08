@@ -36,7 +36,7 @@ void criarGrafo(){
             printf("Atributo %d: \n", j + 1);
             fflush(stdin);
             fgets(nome, 16, stdin);
-            inserirAtributo(nome, &dimensoes[i]);
+            //inserirAtributo(nome, &dimensoes[i]);
         }
     }
     salvarDados(dimensoes, numDim);
