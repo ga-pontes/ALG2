@@ -8,8 +8,11 @@
         nome: nome da dimensão a ser gerada.
         dimensoes: vetor de dimensoes
         n: numero de dimensoes preenchidas.
+        maxAtributos: quantos atributos estão relacionados
+        a esta dimensão.
+    retorno:
+        nenhum.
 */
-
 void criarDimensao(char nome[16], dimensao * dimensoes, int n, int maxAtributos){
     dimensao d;
     d.atributos = (atributo *) malloc (maxAtributos * sizeof(atributo));

@@ -3,6 +3,7 @@
 #include "dimensao.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 /*Função: recuperarDados
     Descrição:
@@ -12,13 +13,13 @@
 */
 void recuperarDados();
 
-/*Função criarGrafo
+/*Função registrarDados
     Descrição: obtém do teclado do usuário as informações necessarias para a geração do grafo de derivação.
     Isto é, numero de dimensoes, numero de atributos, nome das dimensoes e nome dos atributos.
     parâmetros: nenhum.
     retorno: nenhum.
 */
-void criarGrafo();
+lista_de_dimensao * registrarDados(FILE * fonte);
 
 
 /*Função: salvarDados()
@@ -39,5 +40,7 @@ int salvarDados(dimensao * dimensoes, int numDim);
     retorno: nenhum.
 */
 void printarRegistroFormatado(dimensao d, int n);
+
+void recuperarRegistroN(int n);
 
 #endif // _ARQUIVO_H
