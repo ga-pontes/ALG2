@@ -5,89 +5,54 @@
 #define N_DIM 5
 //MAIN DE TESTES DE CRIAÇÃO
 int main(){
-<<<<<<< HEAD
     G grafo;
     grafo.listaV.inicio = NULL;
 
-    v v_teste = cria_vertice(0, "ABCDE");
-    insere_vertice(&(grafo.listaV), &v_teste);
+    dimensao * dimensoes = (dimensao *) malloc(5*sizeof(dimensao));
 
-    V nova_lista = *(gera_permutacao(&v_teste));
-    (grafo.listaV.inicio)->prox = nova_lista.inicio;
+    criarDimensao("Produto", dimensoes, 0, 2);
+    inserirAtributo("Marca", &dimensoes[0], 0);
 
-    V nova_lista2 = *gera_permutacao(nova_lista.inicio) ;
-    (grafo.listaV.inicio)->prox->prox->prox->prox->prox->prox = nova_lista2.inicio;
+    dimensao F;
+    criarDimensao("Filial", dimensoes, 1, 3);
+    inserirAtributo("Cidade", &dimensoes[1], 0);
+    inserirAtributo("Estado", &dimensoes[1], 1);
 
-    v* aux = grafo.listaV.inicio;
-    while(aux != NULL){
-        int it;
-        puts(aux->sigla);
-        aux = aux->prox;
+    v vert = cria_vertice(0, "", dimensoes);
+    gerarSigladoVertice(&vert);
+    puts(vert.sigla);
+
+    v *aux_v = &vert;
+    aux_v->prox = permuta_dim(aux_v)->inicio;
+    while(aux_v != NULL){
+        gerarSigladoVertice(aux_v);
+        puts(aux_v->sigla);
+        aux_v = aux_v->prox;
     }
 
-    GG(&grafo);
 
+    /*dimensao S;
+    criarDimensao("Tempo", dimensoes, 2, 1);
+    inserirAtributo("Dia", &dimensoes[2], 0);
 
+    v vert = cria_vertice(0, "", dimensoes);
+    gerarSigladoVertice(&vert);
 
-   /*
-   a aresta4 = cria_aresta(grafo.listaV.inicio->prox->prox->prox->prox);
-   a aresta3 = cria_aresta(grafo.listaV.inicio->prox->prox->prox);
-   a aresta5 = cria_aresta(grafo.listaV.inicio->prox->prox->prox->prox->prox);
-   a aresta_teste = cria_aresta(grafo.listaV.inicio->prox);
-   insere_aresta(grafo.listaV.inicio, &aresta_teste);
-   aresta_teste = cria_aresta(grafo.listaV.inicio->prox->prox);
-   insere_aresta(grafo.listaV.inicio, &aresta_teste);
-   insere_aresta(grafo.listaV.inicio->prox->prox, &aresta5);
-   insere_aresta(grafo.listaV.inicio->prox->prox->prox, &aresta4);
-   insere_aresta(grafo.listaV.inicio->prox->prox->prox, &aresta3);
-=======
-    dimensao * d = malloc(sizeof(dimensao));
-    criarDimensao("Dimensao1", d, 0, 5);
-    inserirAtributo("Produto", d);
-    inserirAtributo("Marca", d);
-    inserirAtributo("Marrom", d);
-    inserirAtributo("Marlon", d);
+    int a = 0;
 
-    /*
-    char tecla = '\0';
-    G * grafo;
-    do{
-    printf("\n\nSelecione o que deseja executar: \n");
-    printf("1 - Novo Grafo de Derivação.\n");
-    printf("2 - Ajuda\n");
-    printf("Envie 'q' para sair. \n");
-    fflush(stdin);
-    scanf("%c", &tecla);
+    v *aux_v = &vert;
+    while(strlen(aux_v->sigla) > 1){
+        aux_v->prox = permuta_dim(aux_v)->inicio;
+        while(aux_v->prox != NULL){
+            printf("%d\n", a++);
+            gerarSigladoVertice(aux_v);
+            puts(aux_v->sigla);
+            aux_v = aux_v->prox;
+        }
+        printf("\n");
+        gerarSigladoVertice(aux_v);
+        puts(aux_v->sigla);
+    }*/
 
-    switch(tecla){
-    case '1':
-        grafo = criarGrafo();
-        break;
-    }
-
-    } while(tecla != 'q');*/
-   return 0;
+    return 0;
 }
-
-/*
-void criarGrafo(){
-    //Alocando espaço para o grafo
-    G *g = (G *) malloc(sizeof(G));
->>>>>>> origin/master
-
-    //Coletando informações sobre a estrutura do grafo
-    int nDimensoes;
-    printf("Digite o numero de Dimensoes que o grafo possuirá: ");
-    fflush(stdin);
-    scanf("%d", &nDimensoes);
-
-<<<<<<< HEAD
-    generateDot(grafo.listaV.inicio);
-
-    */
-   return 0;
-}
-=======
-    //Alocando espaço para as dimensoes
-}*/
->>>>>>> origin/master

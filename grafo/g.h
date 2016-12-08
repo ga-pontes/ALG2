@@ -3,16 +3,21 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "dimensao.h"
 
 struct lista_de_arestas;
-
 
 //DEFINIÇÃO DO VÉRTICE DO GRAFO
 typedef struct vertice {
     int i; //EXEMPLO DE CONTEÚDO
-    char sigla[5];
+
     struct lista_de_arestas *A; //ENDERÇO DA LISTA DE ARESTAS DESTE VÉRICE
     struct vertice *prox; //PRÓX VERTICE DO GRAFO
+
+    char sigla[100];
+
+    struct dimensao *dim;
+    int nvl_de_cada_dimensao[10];
 } v;
 
 typedef struct aresta {
@@ -36,7 +41,7 @@ typedef struct GRAFO{
 
 
 int estaVazioV(V*);
-v cria_vertice(int n, char *s);
+v cria_vertice(int n, char *s, dimensao *dim);
 void insere_vertice(V*, v*);
 a cria_aresta(v*);
 int estaVazioA(A*);
@@ -44,5 +49,7 @@ void insere_aresta(v*, a*);
 V* gera_permutacao(v *vt);
 int fatorial(int a);
 void GG(G *GRAFO);
-
+void gerarSigladoVertice(v *vert);
+V* permuta_dim(v *vert);
+void remove_duplicata(v *LV);
 #endif

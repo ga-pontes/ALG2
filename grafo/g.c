@@ -11,14 +11,21 @@ int estaVazioV(V *LV){
 }
 
 //FUNÇÃO PARA CRIAR NOVO VÉRTICE
-v cria_vertice(int n, char *s){
+v cria_vertice(int n, char *s, dimensao *dim){
     v novo;
     novo.i = n;
     strcpy(novo.sigla, s);
     novo.prox = NULL;
     novo.A = (A*) malloc (1 * sizeof(A));
     novo.A->inicio = NULL;
-    printf("Vertice %d criado.\n", n);
+   //printf("Vertice %d criado.\n", n);
+
+    novo.dim = dim;
+
+    int i;
+    for(i = 0; i < 10; i++){
+        novo.nvl_de_cada_dimensao[i] = -1;
+    }
 
     return novo;
 }
@@ -80,7 +87,7 @@ void insere_aresta(v *origem, a *novo){
     }
     printf("Aresta %d -> %d inserida no grafo.\n", origem->i, novo->destino->i);
 }
-
+/*
 V* gera_permutacao(v *vt){
     V novos_vertices;
     novos_vertices.inicio = NULL;
@@ -127,4 +134,66 @@ void GG(G *GRAFO){
     int n = strlen(GRAFO->listaV.inicio->sigla);
     printf("%d %d", n, fatorial(n));
     return;
+}*/
+
+void gerarSigladoVertice(v *vert){
+    char sigla[100];
+    sigla[0] = '\0';
+    int i, contador_comb = 0;
+    for(i = 0; i < 10; i++){
+        if(vert->nvl_de_cada_dimensao[i] < vert->dim[i].numAtributos)
+            contador_comb++;
+    }
+
+    for(i = 0; i < contador_comb; i++){
+        if(vert->nvl_de_cada_dimensao[i] == -1){
+            strcat(sigla, vert->dim[i].sigla);
+        } else if((vert->nvl_de_cada_dimensao[i] < vert->dim[i].numAtributos)){
+            strcat(sigla, vert->dim[i].atributos[vert->nvl_de_cada_dimensao[i]].sigla);
+        }
+    }
+    strcpy(vert->sigla, sigla);
 }
+
+V* permuta_dim(v *vert){
+    int it_dim;
+    int aumenta_nvl;
+    int i;
+
+    V nova_lista;
+    nova_lista.inicio = NULL;
+    v nv;
+
+    for(it_dim=0; it_dim < 2; it_dim++){
+
+        nv = cria_vertice(0, "", vert->dim);
+        for(i = 0; i < 10; i++)
+            nv.nvl_de_cada_dimensao[i] = vert->nvl_de_cada_dimensao[i];
+        nv.nvl_de_cada_dimensao[it_dim]++;
+
+        insere_vertice(&nova_lista, &nv);
+
+    }
+    return &nova_lista;
+}
+
+void remove_duplicata(v *LV){
+    v *aux_busca_travado;
+    v *aux_busca_rolando;
+    v *aux_busca_anterior;
+
+    aux_busca_travado = LV;
+    while(aux_busca_travado != NULL){
+        aux_busca_anterior = aux_busca_travado;
+        aux_busca_rolando = aux_busca_travado->prox;
+        while(aux_busca_rolando != NULL){
+            if(strcmp(aux_busca_travado->sigla, aux_busca_rolando->sigla) == 0){
+                aux_busca_anterior->prox = aux_busca_rolando->prox;
+            }
+            aux_busca_anterior = aux_busca_rolando;
+            aux_busca_rolando = aux_busca_rolando->prox;
+        }
+        aux_busca_travado = aux_busca_travado->prox;
+    }
+}
+

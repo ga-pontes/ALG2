@@ -10,13 +10,14 @@
         dimensoes: vetor de dimensoes
         n: numero de dimensoes preenchidas.
 */
+
 void criarDimensao(char nome[16], dimensao * dimensoes, int n, int maxAtributos){
     dimensao d;
-    d.atributos = (atributo *) malloc(maxAtributos*sizeof(atributo));
+    d.atributos = (atributo *) malloc (maxAtributos * sizeof(atributo));
     d.numAtributos = 0;
     strcpy(d.nome, nome);
     //gerar sigla
-    char * sigla = (char *) malloc(3*sizeof(char));
+    char * sigla = (char *) malloc (3*sizeof(char));
     sigla = gerarSigla(dimensoes, n, d.nome);
     strcpy(d.sigla, sigla);
     dimensoes[n] = d;
@@ -24,13 +25,13 @@ void criarDimensao(char nome[16], dimensao * dimensoes, int n, int maxAtributos)
 }
 
 
-void inserirAtributo(char nome[16], dimensao * dim){
+void inserirAtributo(char nome[16], dimensao *dim, int nvl){
     atributo a;
     strcpy(a.nome, nome);
     char * sigla = (char *) malloc(3*sizeof(char));
     sigla = gerarSiglaAtrib(dim->atributos, dim->numAtributos, nome);
     strcpy(a.sigla, sigla);
-
+    a.nvl_hierarquia = nvl;
     dim->atributos[dim->numAtributos] = a;
     dim->numAtributos++;
     printf("Atributo %s criado. Sigla: %s\n", a.nome, a.sigla);
@@ -145,5 +146,8 @@ char * gerarSigla(dimensao *dimensoes, int n, char nome[15]){
     }
     return sigla;
 }
+
+
+
 
 

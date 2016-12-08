@@ -19,15 +19,17 @@
 	"g.h"
 	<stdio.h>
 
-<<<<<<< HEAD
-1481084206 source:c:\users\gabriel pontes\documents\github\alg2\grafo\g.c
+1480829699 D
+
+1481105645 source:c:\users\gabriel pontes\documents\github\alg2\grafo\g.c
 	"g.h"
 
-1481083987 c:\users\gabriel pontes\documents\github\alg2\grafo\g.h
+1481104620 c:\users\gabriel pontes\documents\github\alg2\grafo\g.h
 	<stdio.h>
 	<stdlib.h>
+	"dimensao.h"
 
-1481070844 source:c:\users\gabriel pontes\documents\github\alg2\grafo\graphtodot.c
+1481085430 source:c:\users\gabriel pontes\documents\github\alg2\grafo\graphtodot.c
 	"graphtodot.h"
 	<stdlib.h>
 
@@ -35,10 +37,13 @@
 	"g.h"
 	<stdio.h>
 
-1481083820 source:c:\users\gabriel pontes\documents\github\alg2\grafo\main.c
+1481105612 source:c:\users\gabriel pontes\documents\github\alg2\grafo\main.c
 	"g.h"
 	"graphtodot.h"
-=======
+	"dimensao.h"
+
+1481083820 t.h"
+
 1481084042 source:c:\users\andre\desktop\alg2\grafo\dimensao.c
 	"dimensao.h"
 	<string.h>
@@ -46,5 +51,14 @@
 	<stdlib.h>
 
 1481084008 c:\users\andre\desktop\alg2\grafo\dimensao.h
->>>>>>> origin/master
+
+1481084008 gin/master
+
+1481096318 c:\users\gabriel pontes\documents\github\alg2\grafo\dimensao.h
+
+1481101051 source:c:\users\gabriel pontes\documents\github\alg2\grafo\dimensao.c
+	"dimensao.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
 

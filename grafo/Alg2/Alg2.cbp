@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../dimensao.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../dimensao.h" />
 		<Unit filename="../g.c">
 			<Option compilerVar="CC" />
 		</Unit>
