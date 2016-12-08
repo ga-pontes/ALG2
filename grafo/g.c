@@ -1,6 +1,6 @@
 #include "g.h"
 
-//VERIFICA SE A LISTA DE VERTICES ESTA VAZIA
+/// VERIFICA SE A LISTA DE VERTICES ESTA VAZIA
 int estaVazioV(V *LV){
     if(LV->inicio == NULL){
         //printf("LV vazia.\n");
@@ -10,7 +10,7 @@ int estaVazioV(V *LV){
     return 0;
 }
 
-//FUNÇÃO PARA CRIAR NOVO VÉRTICE
+/// FUNÇÃO PARA CRIAR NOVO VÉRTICE
 v cria_vertice(int n, char *s, dimensao *dim){
     v novo;
     novo.i = n;
@@ -87,63 +87,17 @@ void insere_aresta(v *origem, a *novo){
         *aux->prox = *novo;
         //printf("Aresta foi inserida no final da lista.\n");
     }
-    printf("\nAresta de %s para %s criada.\n", novo->origem->sigla, novo->destino->sigla);
-    printf("Aresta %d -> %d inserida no grafo.\n", origem->i, novo->destino->i);
-}
-/*
-V* gera_permutacao(v *vt){
-    V novos_vertices;
-    novos_vertices.inicio = NULL;
-    int isolador;
-    int combinador;
-    int flag;
-    int char_atual = 0;
-    for(isolador = 0; isolador < strlen(vt->sigla); isolador++){
-        char nova_combinacao[6];
-        flag = 0;
-        char_atual = 0;
-        for(combinador = 0; combinador < strlen(vt->sigla); combinador++){
-            if(isolador !v* origem, = combinador){
-                nova_combinacao[char_atual] = vt->sigla[combinador];
-                char_atual++;
-                flag = 1;
-            }
-        }
-        nova_combinacao[char_atual] = '\0';
-        //puts(nova_combinacao);
-        if(flag){
-            v novo_vertice = cria_vertice(1, nova_combinacao);
-            insere_vertice(&novos_vertices, &novo_vertice);
-        }
-    }
-
-    //so deus sabe pq mas isso eh necessario p funcao funcionar
-    v* aux = novos_vertices.inicio;
-    int ita;
-    for(ita = 0; ita < 2; ita++){}
-
-    return &novos_vertices;
+   /* printf("\nAresta de %s para %s criada.\n", novo->origem->sigla, novo->destino->sigla);
+    printf("Aresta %d -> %d inserida no grafo.\n", origem->i, novo->destino->i);*/
 }
 
-int fatorial(int a){
-    int fat = 1;
-    for(; a > 0; a--){
-        fat = fat * a;
-    }
-    return fat;
-}
-
-void GG(G *GRAFO){
-    int n = strlen(GRAFO->listaV.inicio->sigla);
-    printf("%d %d", n, fatorial(n));
-    return;
-}*/
-
+/// FUNÇÃO PARA GERAR A SIGLA DE UM VÉRTICE
+/// BASEADO NAS SUAS DIMENSOES E HIERARQUIA
+/// qd = QNT TOTAL DE DIMENSOES + ATRIBUTOS
 void gerarSigladoVertice(v *vert, int qd){
     char sigla[100];
     sigla[0] = '\0';
     int i;
-
     for(i = 0; i < qd; i++){
         if(vert->nvl_de_cada_dimensao[i] == 0){
             strcat(sigla, vert->dim[i].sigla);
@@ -154,7 +108,14 @@ void gerarSigladoVertice(v *vert, int qd){
     strcpy(vert->sigla, sigla);
 }
 
-void permuta_dim(V *LV, v *vert, int qd, char ST[][5], int flag_isolados[]){
+/// FUNÇÃO PARA GERAR AS COMBINAÇÕES "FILHAS"
+/// DE UM VÉRICE
+/// LV = LISTA A SER ADD O VÉRTICE
+/// VERTICE A SER RECOMBINADO
+/// qd = QNT TOTAL DE DIMENSOES + ATRIBUTOS
+/// ST MATRIZ DE SIGLAS DAS DIMENSOES E ATRIBUTOS
+/// FLAG_ISOLADOS SERVE COMO INTERRUPÇÃO DA GEREAÇÃO DO GRAFO
+void permuta_dim(V *LV, v *vert, int qd, char ST[][5], int flag_isolados[], int total_de_elementos){
     v nv;
     a ar;
 
@@ -183,7 +144,7 @@ void permuta_dim(V *LV, v *vert, int qd, char ST[][5], int flag_isolados[]){
         }
     } else {
         int m;
-        for(m = 0; m < 5; m++){
+        for(m = 0; m < total_de_elementos; m++){
             if(strcmp(ST[m], vert->sigla) == 0){
                /* puts(ST[m]);
                 puts(vert->sigla);
@@ -194,6 +155,95 @@ void permuta_dim(V *LV, v *vert, int qd, char ST[][5], int flag_isolados[]){
     }
 
     //return LV;
+}
+
+v* cria_arestas_das_isoladas(V *LV, int qd, char ST[][5], int total_de_elementos, dimensao *dimensoes){
+    dimensao *D_aux;
+    v *buscador_atual;
+    v *buscador_prox;
+    v *all = (v*) calloc (1, sizeof(v));
+    *all = cria_vertice(1000, "ALL", dimensoes);
+    a nova_aresta;
+
+    insere_vertice(LV, all);
+    int i;
+    for(i = 0; i < 3; i++){
+        D_aux = &(dimensoes[i]);
+        //SE NÃO EXISTEM ATRIBUTOS
+        if(D_aux->numAtributos == 0){
+            //APONTA VERTICE DA DIMENSAO ISOLADO PRA ALL
+            buscador_atual = LV->inicio;
+            while(strcmp(D_aux->sigla, buscador_atual->sigla) != 0){
+                buscador_atual = buscador_atual->prox;
+            }
+            nova_aresta = cria_aresta(buscador_atual, all);
+            insere_aresta(buscador_atual, &nova_aresta);
+        }
+        //SE EXISTEM ATRIBUTOS
+        int NH;
+        if(D_aux->numAtributos > 0){
+            NH = 0;
+            //ENQNT NH < NRO_ATRIBUTOS
+            while(NH <= D_aux->numAtributos){
+                buscador_atual = LV->inicio;
+                buscador_prox = LV->inicio;
+                //PROCURA NH ATUAL E PROX_NH
+                //CRIA ARESTA ENTRE NH E PROX_NH
+                if(NH == 0){
+                    //printf("CASO 0: Nvl de hierarquia: %d\n", NH);
+
+                    //printf("Estamos procurando a sigla %s.\n", D_aux->sigla);
+                    while(strcmp(buscador_atual->sigla, D_aux->sigla) != 0){
+                        buscador_atual = buscador_atual->prox;
+                    }
+                   // printf("Encontrou o vertice %s isolado.\n", buscador_atual->sigla);
+                    buscador_prox = buscador_atual->prox;
+
+                    //printf("Estamos procurando a sigla %s.\n", D_aux->atributos[NH].sigla);
+                    while(strcmp(buscador_prox->sigla, D_aux->atributos[NH].sigla) != 0){
+                        buscador_prox = buscador_prox->prox;
+                    }
+                    //printf("Encontrou o vertice maior na h %s isolado.\n", buscador_prox->sigla);
+                    nova_aresta = cria_aresta(buscador_atual, buscador_prox);
+                    insere_aresta(buscador_atual, &nova_aresta);
+
+                    NH++;
+                }
+                if(NH > 0 && NH < D_aux->numAtributos){
+                   // printf("CASO 1: Nvl de hierarquia: %d\n", NH);
+
+                    //printf("Estamos procurando a sigla %s.\n", D_aux->atributos[NH-1].sigla);
+                    while(strcmp(buscador_atual->sigla, D_aux->atributos[NH-1].sigla) != 0){
+                        buscador_atual = buscador_atual->prox;
+                    }
+                    //printf("Encontrou o vertice %s isolado.\n", buscador_atual->sigla);
+                    buscador_prox = buscador_atual->prox;
+                    while(strcmp(buscador_prox->sigla, D_aux->atributos[NH].sigla) != 0){
+                        buscador_prox = buscador_prox->prox;
+                    }
+                    //printf("Encontrou o vertice maior na h %s isolado.\n", buscador_prox->sigla);
+                    nova_aresta = cria_aresta(buscador_atual, buscador_prox);
+                    insere_aresta(buscador_atual, &nova_aresta);
+
+                    NH++;
+                }
+                 //QUANDO NH == NRO_ATRIBUTOS
+                if(NH == D_aux->numAtributos){
+                    //printf("CASO 2: Nvl de hierarquia: %d\n", NH);
+                    //APONTA VERTICE DA HRQUIA MAIS ALTO ISOLADO PRA ALL
+                    //printf("Estamos procurando a sigla %s.\n", D_aux->atributos[NH-1].sigla);
+                    while(strcmp(D_aux->atributos[NH-1].sigla, buscador_atual->sigla) != 0){
+                        buscador_atual = buscador_atual->prox;
+                    }
+                    nova_aresta = cria_aresta(buscador_atual, all);
+                    insere_aresta(buscador_atual, &nova_aresta);
+
+                    NH++;
+                }
+            }
+        }
+    }
+    return all;
 }
 
 v* encontra_duplicata(v *LV){
@@ -213,7 +263,8 @@ v* encontra_duplicata(v *LV){
     return NULL;
 }
 
-
+/// FUNÇÃO QUE REMOVE TODOS OS VÉRTICE DUPLICADOS
+/// SEM TRATAR ARESTAS
 void remove_duplicata(v *LV){
     v *aux_busca_travado;
     v *aux_busca_rolando;
@@ -238,4 +289,67 @@ void remove_duplicata(v *LV){
         aux_busca_travado = aux_busca_travado->prox;
     }
 }
+
+void gerar_grafo_de_derivacao(lista_de_dimensao *LD){
+    /*int qd = LD->tamanho;*/
+    //int total_de_elementos;// = LD->TOTAL
+
+    //SINALIZADOR DE DIM/ATRIBUTO JÁ ISOLADO
+    int *flag_isolados;
+    flag_isolados = (int*) calloc (LD->totalElementos, sizeof(int));
+
+    //VETOR DE ISOLADOS
+    int it;
+    for(it = 0; it < LD->totalElementos; it++){
+        flag_isolados[it] = 0;
+    }
+
+    //CONJUNTO VAZIO É QUANDO UMA SIGLA É ISOLADA DE TODAS AS OUTRAS.
+    //PRECISA SER PASSADO COMO REF PARA SER OPERADO POR FUNCOES EXTERNAS
+    int flag_continuidade = 1;
+    v vert = cria_vertice(0, "", LD->dimensoes);
+    vert.i = 0;
+    gerarSigladoVertice(&vert, LD->tamanho);
+
+    //VARIÁVEIS QUE GERAM O GRAFO
+    v *aux_v = &vert;
+    v *aux_final;
+    V nova_lista;
+    nova_lista.inicio = &vert;
+    int cnt;
+
+    while(flag_continuidade){
+        //ENCONTRA FINAL "ATUAL" DA LISTA
+        aux_final = &vert;
+        while(aux_final->prox != NULL){
+            aux_final = aux_final->prox;
+        }
+        v* aux_v7 = &vert;
+
+        //gera "filhos" do vértice atual no final da lista
+        permuta_dim(&nova_lista, aux_v, LD->tamanho, LD->siglas, flag_isolados, LD->totalElementos);
+
+        //passa para o próximo vertice
+        aux_v = aux_v->prox;
+
+        //TESTA CONDIÇÃO DE PARADA
+        cnt = 0;
+        for(it = 0; it < LD->totalElementos; it++){
+            if(flag_isolados[it] == 1)
+                cnt++;
+        }
+        if(cnt == LD->totalElementos)
+            flag_continuidade = 0;
+    }
+        //CRIA AS ARESTAS ENTRE ISOLADOS E ALL
+        cria_arestas_das_isoladas(&nova_lista, LD->tamanho, LD->siglas, LD->totalElementos, LD->dimensoes);
+
+        //IMPRIME VERTICES DO GRAFO
+        v* aux_v7 = &vert;
+        while(aux_v7 != NULL){
+            puts(aux_v7->sigla);
+            aux_v7=aux_v7->prox;
+        }
+}
+
 

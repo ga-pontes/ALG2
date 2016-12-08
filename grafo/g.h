@@ -51,7 +51,8 @@ V* gera_permutacao(v *vt);
 int fatorial(int a);
 void GG(G *GRAFO);
 void gerarSigladoVertice(v *vert, int qd);
-void permuta_dim(V* LV, v *vert, int qd, char ST[][5], int flag_isolados[]);
+void permuta_dim(V* LV, v *vert, int qd, char ST[][5], int flag_isolados[], int total_de_elementos);
+v* cria_arestas_das_isoladas(V *LV, int qd, char ST[][5], int total_de_elementos, dimensao *dimensoes);
 v* encontra_duplicata(v *LV);
 void remove_duplicata(v *LV);
 #endif

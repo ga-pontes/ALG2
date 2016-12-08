@@ -23,6 +23,8 @@ typedef struct lista_de_atributo{
 typedef struct lista_de_dimensao{
     dimensao * dimensoes;
     int tamanho;
+    char **siglas;
+    int totalElementos;
 } lista_de_dimensao;
 
 char * gerarSigla(dimensao *dimensoes, int n, char nome[16]);
