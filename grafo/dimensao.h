@@ -21,7 +21,7 @@ typedef struct lista_de_atributo{
 } lista_de_atributo;
 
 typedef struct lista_de_dimensao{
-    dimensao * dimensoes;
+    dimensao *dimensoes;
     int tamanho;
     char **siglas;
     int totalElementos;

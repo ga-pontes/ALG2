@@ -18,6 +18,10 @@ void generateDot(v * vertice){
             fprintf(tmp, "%s;\n", vertice->sigla);
             numLinhas++;
         } else while(aresta != NULL){
+            if(strcmp(aresta->origem->sigla, aresta->destino->sigla) == 0){
+                aresta = aresta->prox;
+                continue;
+            }
             fprintf(tmp, "%s -> ", vertice->sigla);
             fprintf(tmp, " %s;\n", aresta->destino->sigla);
             aresta = aresta->prox;

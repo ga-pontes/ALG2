@@ -117,7 +117,7 @@ void gerarSigladoVerticeD(v *vert, int qd){
     sigla[0] = '\0';
     int i;
     for(i = 0; i < qd; i++){
-        if(vert->nvl_de_cada_dimensao[i] == 0){
+        if(vert->dimensoes_disponiveis[i]){
             strcat(sigla, vert->dim[i].sigla);
         }
     }
@@ -305,122 +305,6 @@ void remove_duplicata(v *LV){
     }
 }
 
-/*void permuta_dimensao(V *LV, v *vert, int qd, char **ST, int flag_isolados[], int total_de_elementos){
-    v nv;
-    a ar;
-
-    int flag_para_gerar_vertice = 0;
-
-    int it_dim;
-
-    for(it_dim = 0; it_dim < qd; it_dim++){
-        if(strlen(vert->sigla) > 1){
-            flag_para_gerar_vertice++;
-        }
-    }
-
-    int i;
-    if(flag_para_gerar_vertice > 1){
-        for(it_dim=0; it_dim < qd; it_dim++){
-            nv = cria_vertice(vert->i + (it_dim+1), "", vert->dim);
-            for(i = 0; i < 20; i++)
-                nv.vetor_grafo_dimensoes[i] = vert->vetor_grafo_dimensoes[i];
-            nv.nvl_de_cada_dimensao[it_dim]++;
-            gerarSigladoVerticeD(&nv, qd);
-
-            printf("Sigla gerada: %s\n", nv.sigla);
-
-            v* end = insere_vertice(LV, &nv);
-            ar = cria_aresta(vert, end);
-            insere_aresta(vert, &ar);
-        }
-    } else {
-        int m;
-        for(m = 0; m < qd; m++){
-            if(strcmp(vert->dim[m].sigla, vert->sigla) == 0){
-                flag_isolados[m] = 1;
-            }
-        }
-    }
-}*/
-/*
-void gerar_grafo_de_dimensao(lista_de_dimensao *LD){
-    //int total_de_elementos;// = LD->TOTAL
-
-    //SINALIZADOR DE DIM/ATRIBUTO JÁ ISOLADO
-    int *flag_isolados;
-    flag_isolados = (int*) calloc (LD->tamanho, sizeof(int));
-    //VETOR DE ISOLADOS
-    int it;
-    for(it = 0; it < LD->tamanho; it++){
-        flag_isolados[it] = 0;
-    }
-
-    //CONJUNTO VAZIO É QUANDO UMA SIGLA É ISOLADA DE TODAS AS OUTRAS.
-    //PRECISA SER PASSADO COMO REF PARA SER OPERADO POR FUNCOES EXTERNAS
-    int flag_continuidade = 1;
-    v vert = cria_vertice(0, "", LD->dimensoes);
-    vert.i = 0;
-    gerarSigladoVertice(&vert, LD->tamanho);
-
-    //VARIÁVEIS QUE GERAM O GRAFO
-    v *aux_v = &vert;
-    v *aux_final;
-    V nova_lista;
-    nova_lista.inicio = &vert;
-    int cnt;
-
-
-    while(flag_continuidade){
-
-        //ENCONTRA FINAL "ATUAL" DA LISTA
-        int i;
-        char lds[LD->tamanho][3];
-
-        for(i = 0; i < LD->tamanho; i++){
-            strcpy(lds[i], LD->dimensoes[i].sigla);
-        }
-
-
-        //ENCONTRA FINAL "ATUAL" DA LISTA
-        v *aux_final = &vert;
-        while(aux_final->prox != NULL){
-            aux_final = aux_final->prox;
-        }
-        v* aux_v7 = &vert;
-
-
-        //gera "filhos" do vértice atual no final da lista
-        printf("vt atual: %s%d\n", aux_v->sigla, aux_v->i);
-        permuta_dimensao(&nova_lista, aux_v, LD->tamanho, lds, flag_isolados, LD->totalElementos);
-
-        //passa para o próximo vertice
-        aux_v = aux_v->prox;
-
-        //TESTA CONDIÇÃO DE PARADA
-        cnt = 0;
-
-        for(it = 0; it < LD->tamanho; it++){
-            printf("%d ", flag_isolados[it]);
-            if(flag_isolados[it] == 1)
-                cnt++;
-        } printf("\n");
-        if(cnt == LD->tamanho)
-            flag_continuidade = 0;
-    }
-        //CRIA AS ARESTAS ENTRE ISOLADOS E ALL
-        //cria_arestas_das_isoladas(&nova_lista, LD->tamanho, LD->siglas, LD->totalElementos, LD->dimensoes);
-
-        //IMPRIME VERTICES DO GRAFO
-        v* aux_v7 = &vert;
-        while(aux_v7 != NULL){
-            puts(aux_v7->sigla);
-            aux_v7=aux_v7->prox;
-        }
-}
-*/
-
-
 void gerar_grafo_de_derivacao(lista_de_dimensao *LD){
     /*int qd = LD->tamanho;*/
     //int total_de_elementos;// = LD->TOTAL
@@ -492,32 +376,113 @@ void gerar_grafo_de_derivacao(lista_de_dimensao *LD){
             puts(aux_v7->sigla);
             aux_v7=aux_v7->prox;
         }
-        generateDot(&vert);
-}
-/*
-void combina_dimensoes(V* L, v *vert, int qd){
-    int cnt;
-    int i, j;
-    /*for(i = 0; i < qd; i++){
-        if(vert->dimensoes_disponiveis[i] == 0) cnt++;
-    }
 
-    int qt_dim = qd - cnt;
+       /* aux_v7 = &vert;
+        a aux_A;
+        while(aux_v7 != NULL){
 
-    v *novo_vertice;
-    char nova_sigla[100];
-
-    if(qt_dim == 1) return;
-    else{
-        for(i = 0; i++; i < qd; i++){
-            for(j = 0; j < qd; j++){
-                if((i != j) && (dimensoes_disponiveis[j] != 0)){
-                    strcat(nova_sigla, )
-                }
-            }
+            aux_v7=aux_v7->prox;
         }
 
+        */
+        generateDot(&vert);
+}
+
+void gera_grafo_de_dimensoes(lista_de_dimensao *LD){
+    lista_de_dimensao NOVA_LISTA;
+    int i;
+
+    NOVA_LISTA.siglas = (char**) malloc (10 * sizeof(char*));
+    NOVA_LISTA.dimensoes = (dimensao*) malloc (10 * sizeof(dimensao));
+
+    for(i = 0; i < LD->tamanho; i++){
+        NOVA_LISTA.siglas[i] = (char*) malloc (10* sizeof(char));
+        strcpy(NOVA_LISTA.siglas[i], LD->dimensoes[i].sigla);
+        puts(NOVA_LISTA.siglas[i]);
+
+        criarDimensao(NOVA_LISTA.siglas[i], NOVA_LISTA.dimensoes, i, 0);
+
+    }
+    NOVA_LISTA.totalElementos = LD->tamanho;
+    NOVA_LISTA.tamanho = LD->tamanho;
+
+    //SINALIZADOR DE DIM/ATRIBUTO JÁ ISOLADO
+    int *flag_isolados;
+    flag_isolados = (int*) calloc (LD->tamanho, sizeof(int));
+
+    //VETOR DE ISOLADOS
+    int it;
+    printf("%d\n", NOVA_LISTA.totalElementos);
+    for(it = 0; it < NOVA_LISTA.totalElementos; it++){
+        flag_isolados[it] = 0;
     }
 
+    //CONJUNTO VAZIO É QUANDO UMA SIGLA É ISOLADA DE TODAS AS OUTRAS.
+    //PRECISA SER PASSADO COMO REF PARA SER OPERADO POR FUNCOES EXTERNAS
+    int flag_continuidade = 1;
+    v vert = cria_vertice(0, "", NOVA_LISTA.dimensoes);
+    vert.i = 0;
+    gerarSigladoVertice(&vert, NOVA_LISTA.tamanho);
+
+
+
+    //VARIÁVEIS QUE GERAM O GRAFO
+    v *aux_v = &vert;
+    v *aux_final;
+    V nova_lista;
+    nova_lista.inicio = &vert;
+    int cnt;
+
+    while(flag_continuidade){
+        printf("ok1\n");
+
+
+
+        //ENCONTRA FINAL "ATUAL" DA LISTA
+        aux_final = &vert;
+        while(aux_final->prox != NULL){
+            aux_final = aux_final->prox;
+        }
+        v* aux_v7 = &vert;
+
+        //gera "filhos" do vértice atual no final da lista
+        printf("gerando filhos do vert %s\n", aux_v->sigla);
+
+        permuta_dim(&nova_lista, aux_v, NOVA_LISTA.tamanho, NOVA_LISTA.siglas, flag_isolados, NOVA_LISTA.totalElementos);
+        printf("gerou.\n");
+
+        //passa para o próximo vertice
+        aux_v = aux_v->prox;
+
+        //TESTA CONDIÇÃO DE PARADA
+        cnt = 0;
+        for(it = 0; it < NOVA_LISTA.totalElementos; it++){
+            printf("%d ", flag_isolados[it]);
+            if(flag_isolados[it] == 1)
+                cnt++;
+        }
+        printf("\n");
+
+        if(cnt == NOVA_LISTA.totalElementos)
+            flag_continuidade = 0;
+    }
+        //CRIA AS ARESTAS ENTRE ISOLADOS E ALL
+        cria_arestas_das_isoladas(&nova_lista, NOVA_LISTA.tamanho, &(NOVA_LISTA.siglas), NOVA_LISTA.totalElementos, NOVA_LISTA.dimensoes);
+
+        //IMPRIME VERTICES DO GRAFO
+        v* aux_v7 = &vert;
+        while(aux_v7 != NULL){
+            puts(aux_v7->sigla);
+            aux_v7=aux_v7->prox;
+        }
+
+       /* aux_v7 = &vert;
+        a aux_A;
+        while(aux_v7 != NULL){
+
+            aux_v7=aux_v7->prox;
+        }
+
+        */
+        generateDot(&vert);
 }
-*/
