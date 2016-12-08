@@ -24,23 +24,24 @@
 
 1480829699 D
 
-1481206992 source:c:\users\gabriel pontes\documents\github\alg2\grafo\g.c
+1481231620 source:c:\users\gabriel pontes\documents\github\alg2\grafo\g.c
 	"g.h"
 
-1481205540 c:\users\gabriel pontes\documents\github\alg2\grafo\g.h
+1481231510 c:\users\gabriel pontes\documents\github\alg2\grafo\g.h
 	<stdio.h>
 	<stdlib.h>
 	"dimensao.h"
 
-1481085430 source:c:\users\gabriel pontes\documents\github\alg2\grafo\graphtodot.c
+1481207130 source:c:\users\gabriel pontes\documents\github\alg2\grafo\graphtodot.c
 	"graphtodot.h"
 	<stdlib.h>
+	<string.h>
 
 1481070844 c:\users\gabriel pontes\documents\github\alg2\grafo\graphtodot.h
 	"g.h"
 	<stdio.h>
 
-1481206783 source:c:\users\gabriel pontes\documents\github\alg2\grafo\main.c
+1481229903 source:c:\users\gabriel pontes\documents\github\alg2\grafo\main.c
 	"g.h"
 	"graphtodot.h"
 	"dimensao.h"
@@ -58,7 +59,7 @@
 
 1481084008 gin/master
 
-1481206873 c:\users\gabriel pontes\documents\github\alg2\grafo\dimensao.h
+1481207401 c:\users\gabriel pontes\documents\github\alg2\grafo\dimensao.h
 
 1481184996 source:c:\users\gabriel pontes\documents\github\alg2\grafo\dimensao.c
 	"dimensao.h"
@@ -66,13 +67,13 @@
 	<stdio.h>
 	<stdlib.h>
 
-1481184996 c:\users\gabriel pontes\documents\github\alg2\grafo\arquivo.h
+1481207130 c:\users\gabriel pontes\documents\github\alg2\grafo\arquivo.h
 	"dimensao.h"
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 
-1481184996 source:c:\users\gabriel pontes\documents\github\alg2\grafo\arquivo.c
+1481214961 source:c:\users\gabriel pontes\documents\github\alg2\grafo\arquivo.c
 	"arquivo.h"
 	<stdlib.h>
 	<stdio.h>

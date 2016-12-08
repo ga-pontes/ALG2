@@ -6,44 +6,16 @@
 void printaAjuda();
 //MAIN DE TESTES DE CRIAÇÃO
 int main(){
-//<<<<<<< HEAD
-//<<<<<<< HEAD
+    /*lista_de_dimensao LD;
 
-    return 0;
-}
+    criarDimensao("Produto", LD.dimensoes, 0, 1);
+    inserirAtributo("Marca", &(LD.dimensoes[0]), 0);
 
+    criarDimensao("Filial", LD.dimensoes, 1, 2);
+    inserirAtributo("Cidade", &(LD.dimensoes[1]), 0);
+    inserirAtributo("Estado", &(LD.dimensoes[1]), 1);
 
-
-/*=======
-    int n;
-    char tecla;
-    do{
-    printf("\n\nSelecione o que deseja executar: \n");
-    printf("1 - Novo Grafo de Derivacao.\n");
-    printf("2 - Recuperar todos os dados do registro.\n");
-    printf("3 - Recuperar o registro de numero n, comecando do 0.\n");
-    printf("Envie 'q' para sair. \n");
-    fflush(stdin);
-    scanf("%c", &tecla);
-    switch(tecla){
-    case '1':
-        criarGrafo();
-        break;
-    case '2':
-        recuperarDados();
-        break;
-    case '3':
-        printf("Digite o numero do regitro que deseja recuperar: \n");
-        fflush(stdin);
-        scanf("%d", &n);
-        recuperarRegistroN(n);
-        break;
-    }
-
-    } while(tecla != 'q');
-   return 0;
->>>>>>> origin/master*/
-/*=======
+    return 0;*/
     int n;
     char tecla;
     FILE * teste = NULL;
@@ -64,7 +36,9 @@ int main(){
             lista_dimensoes = registrarDados(stdin); //Retorna a lista de dimensoes que sera gerada e salva.
             //Criar grafo com essa lista.
             //Exemplo de acesso:
+            //printf("%d\n", lista_dimensoes->totalElementos);
             printf("Nome da dimensao em [0]: %s", lista_dimensoes->dimensoes[0].nome);
+            gerar_grafo_de_derivacao(&lista_dimensoes);
             break;
         case '2':
             recuperarDados(stdin);
@@ -85,6 +59,8 @@ int main(){
                 return -1;
             } else {
                 lista_dimensoes = registrarDados(teste);
+                printf("%d\n", lista_dimensoes->totalElementos);
+                gerar_grafo_de_derivacao(lista_dimensoes);
                 fclose(teste);
                 printf("Teste carregado!");
             }
@@ -124,6 +100,5 @@ void printaAjuda(){
                  //pergunta e resposta 6
                 printf("6. Eh possivel gerar o grafo de derivacao apos ler o aquivo?\n");
                 printf("R) Sim, essa opcao aparecera depois que as dimensoes e atributos forem recuperados.\n\n");
->>>>>>> origin/master
+
 }
-*/
