@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 /* Função: criarDimensão
     argumentos:
         nome: nome da dimensão a ser gerada.
@@ -35,7 +36,6 @@ void inserirAtributo(char nome[16], dimensao *dim, int nvl){
     a.nvl_hierarquia = nvl;
     dim->atributos[dim->numAtributos] = a;
     dim->numAtributos++;
-    printf("Numero de atributos da dimensao %s: %d\n", dim->nome, dim->numAtributos);
 }
 
 
@@ -127,6 +127,14 @@ char * gerarSigla(dimensao *dimensoes, int n, char nome[15]){
             if((sigla[0] == dimensoes[i].sigla[0] && sigla[1] == '\0') || (sigla[0] == dimensoes[i].sigla[0] && sigla[1] == dimensoes[i].sigla[1])){
                 igual = 1;
                 break;
+            }
+            //Para cada dimensao, ve tambem as siglas de seus atributos.
+            int iter;
+            for(iter = 0; iter < dimensoes[i].numAtributos; iter++){
+                if((sigla[0] == dimensoes[i].atributos[iter].sigla[0] && sigla[1] == '\0') || (sigla[0] == dimensoes[i].atributos[iter].sigla[0] && sigla[1] == dimensoes[i].atributos[iter].sigla[1])){
+                    igual = 1;
+                    break;
+                }
             }
         }
         //A sigla está igual a de outra dimensão e deve ser mudada
