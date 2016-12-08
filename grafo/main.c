@@ -6,7 +6,7 @@
 void printaAjuda();
 //MAIN DE TESTES DE CRIAÇÃO
 int main(){
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //<<<<<<< HEAD
     G grafo;
     grafo.listaV.inicio = NULL;
@@ -20,6 +20,21 @@ int main(){
     criarDimensao("Filial", dimensoes, 1, 2); qd++;
     inserirAtributo("Cidade", &dimensoes[1], 0);
     inserirAtributo("Estado", &dimensoes[1], 1);
+
+    char siglas_geral[5][5];
+    strcpy(siglas_geral[0], dimensoes[0].sigla);
+    strcpy(siglas_geral[1], dimensoes[1].atributos[0].sigla);
+    strcpy(siglas_geral[2], dimensoes[1].sigla);
+    strcpy(siglas_geral[3], dimensoes[1].atributos[0].sigla);
+    strcpy(siglas_geral[4], dimensoes[1].atributos[1].sigla);
+
+    int *flag_isolados;
+    flag_isolados = (int*) calloc (5, sizeof(int));
+    int it;
+    for(it = 0; it < 5; it++){
+        flag_isolados[it] = 0;
+    }
+
 /*
     criarDimensao("Tempo", dimensoes, 2, 1); qd++;
     inserirAtributo("Dia", &dimensoes[2], 0);*/
@@ -28,10 +43,7 @@ int main(){
     int total_de_elementos = 2 + 1 + 2;
     //CONJUNTO VAZIO É QUANDO UMA SIGLA É ISOLADA DE TODAS AS OUTRAS.
     //PRECISA SER PASSADO COMO REF PARA SER OPERADO POR FUNCOES EXTERNAS
-    int *conjuntos_vazios_encontrados;
-    conjuntos_vazios_encontrados = (int*) malloc (1 * sizeof(int));
-    *conjuntos_vazios_encontrados = 0;
-
+    int flag_continuidade = 1;
     v vert = cria_vertice(0, "", dimensoes);
     vert.i = 0;
     gerarSigladoVertice(&vert, qd);
@@ -39,7 +51,10 @@ int main(){
     v *aux_v = &vert;
     v *aux_final;
 
-    while(*conjuntos_vazios_encontrados < total_de_elementos){
+    V nova_lista;
+    nova_lista.inicio = &vert;
+
+    while(flag_continuidade){
         int contador = 0;
         aux_final = &vert;
         while(aux_final->prox != NULL){
@@ -48,14 +63,21 @@ int main(){
         v* aux_v7 = &vert;
 
         //gera "filhos" do vértice atual no final da lista
-        aux_final->prox = permuta_dim(aux_v, qd, conjuntos_vazios_encontrados)->inicio;
+        permuta_dim(&nova_lista, aux_v, qd, siglas_geral, flag_isolados);
 
         //passa para o próximo vertice
         aux_v = aux_v->prox;
+
+        int cnt = 0;
+        for(it = 0; it < 5; it++){
+            if(flag_isolados[it] == 1)
+                cnt++;
+        }
+        if(cnt == 5) flag_continuidade = 0;
     }
 
-        remove_duplicata(&vert);
-        remove_duplicata(&vert);
+        printf("\n");
+        //remove_duplicata(&vert);
 
         v* aux_v7 = &vert;
         while(aux_v7 != NULL){
@@ -63,9 +85,27 @@ int main(){
             aux_v7=aux_v7->prox;
         }
 
-        printf("\n");
+
+
+        ///printa o grafo
+        printf("\n\n\n");
+        v *cor = &vert;
+        a *cora;
+        while(cor != NULL){
+            printf("Vertice %s:\n", cor->sigla);
+             cora = cor->A->inicio;
+            while(cora != NULL){
+                printf("Aresta de %s para %s.\n", cora->origem->sigla, cora->destino->sigla);
+                cora = cora->prox;
+            }
+            cor = cor->prox;
+        }
 
     return 0;
+}
+
+
+
 /*=======
     int n;
     char tecla;
@@ -95,7 +135,7 @@ int main(){
     } while(tecla != 'q');
    return 0;
 >>>>>>> origin/master*/
-=======
+/*=======
     int n;
     char tecla;
     FILE * teste = NULL;
@@ -178,3 +218,4 @@ void printaAjuda(){
                 printf("R) Sim, essa opcao aparecera depois que as dimensoes e atributos forem recuperados.\n\n");
 >>>>>>> origin/master
 }
+*/

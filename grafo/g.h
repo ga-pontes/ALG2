@@ -43,7 +43,7 @@ typedef struct GRAFO{
 
 int estaVazioV(V*);
 v cria_vertice(int n, char *s, dimensao *dim);
-void insere_vertice(V*, v*);
+v* insere_vertice(V*, v*);
 a cria_aresta(v* origem, v* destino);
 int estaVazioA(A*);
 void insere_aresta(v*, a*);
@@ -51,6 +51,7 @@ V* gera_permutacao(v *vt);
 int fatorial(int a);
 void GG(G *GRAFO);
 void gerarSigladoVertice(v *vert, int qd);
-V* permuta_dim(v *vert, int qd, int *conjuntos_vazios_encontrados);
+void permuta_dim(V* LV, v *vert, int qd, char ST[][5], int flag_isolados[]);
+v* encontra_duplicata(v *LV);
 void remove_duplicata(v *LV);
 #endif

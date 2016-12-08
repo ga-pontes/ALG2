@@ -31,13 +31,13 @@ v cria_vertice(int n, char *s, dimensao *dim){
 }
 
 //INSERE NOVO VERTICE NA LISTA DE VERTICES
-void insere_vertice(struct lista_de_vertices *LV, v *novo){
-
+v* insere_vertice(struct lista_de_vertices *LV, v *novo){
+    v *aux;
     if(estaVazioV(LV)){
         LV->inicio = (v*) malloc (1 * sizeof(v));
         *LV->inicio = *novo;
     } else {
-        v *aux;
+
         aux = LV->inicio;
         //printf("Comecou no vertice %d\n", aux->i);
         while(aux->prox != NULL){
@@ -48,6 +48,7 @@ void insere_vertice(struct lista_de_vertices *LV, v *novo){
         aux->prox = (v*) malloc (1 * sizeof(v));
         *aux->prox = *novo;
     }
+    return aux->prox;
     //printf("Vertice %d inserido no grafo.\n", novo->i);
 }
 
@@ -57,7 +58,7 @@ a cria_aresta(v* origem, v *destino){
     novo.prox = NULL;
     novo.origem = origem;
     novo.destino = destino;
-    printf("\nAresta de %s para %s criada.\n", origem->sigla, destino->sigla);
+    //printf("\nAresta de %s para %s criada.\n", origem->sigla, destino->sigla);
     return novo;
 }
 
@@ -86,6 +87,7 @@ void insere_aresta(v *origem, a *novo){
         *aux->prox = *novo;
         //printf("Aresta foi inserida no final da lista.\n");
     }
+    printf("\nAresta de %s para %s criada.\n", novo->origem->sigla, novo->destino->sigla);
     printf("Aresta %d -> %d inserida no grafo.\n", origem->i, novo->destino->i);
 }
 /*
@@ -138,7 +140,6 @@ void GG(G *GRAFO){
 }*/
 
 void gerarSigladoVertice(v *vert, int qd){
-
     char sigla[100];
     sigla[0] = '\0';
     int i;
@@ -150,56 +151,68 @@ void gerarSigladoVertice(v *vert, int qd){
             strcat(sigla, vert->dim[i].atributos[vert->nvl_de_cada_dimensao[i]-1].sigla);
         }
     }
-    //printf("%d\n", strlen(sigla));
     strcpy(vert->sigla, sigla);
 }
 
-V* permuta_dim(v *vert, int qd, int *conjuntos_vazios_encontrados){
-    V nova_lista;
-    nova_lista.inicio = NULL;
+void permuta_dim(V *LV, v *vert, int qd, char ST[][5], int flag_isolados[]){
     v nv;
     a ar;
 
-    /*printf("ESTAMOS NO GERADOR DO NIVEL INFERIOR.\n");
-    printf("Vamos gerar novos filhos para o vertice %s\n", vert->sigla);
-    printf("O vertice esta no seguinte nivel de h: %d %d\n", vert->nvl_de_cada_dimensao[0], vert->nvl_de_cada_dimensao[1]);
-*/
     int flag_para_gerar_vertice = 0;
 
     int it_dim;
     for(it_dim = 0; it_dim < qd; it_dim++){
         if(vert->nvl_de_cada_dimensao[it_dim] <= vert->dim[it_dim].numAtributos){
-            //printf("atribui, comparando %d %d\n", vert->nvl_de_cada_dimensao[it_dim], vert->dim[it_dim].numAtributos);
             flag_para_gerar_vertice++;
         }
     }
 
     int i;
     if(flag_para_gerar_vertice > 1){
-        //printf("vertice sera gerado.\n");
         for(it_dim=0; it_dim < qd; it_dim++){
             nv = cria_vertice(vert->i + (it_dim+1), "", vert->dim);
-
             for(i = 0; i < 10; i++)
                 nv.nvl_de_cada_dimensao[i] = vert->nvl_de_cada_dimensao[i];
             nv.nvl_de_cada_dimensao[it_dim]++;
-           // printf("O novo nivel de h eh: %d %d\n", nv.nvl_de_cada_dimensao[0], nv.nvl_de_cada_dimensao[1]);
             gerarSigladoVertice(&nv, qd);
 
-            ar = cria_aresta(vert, &nv);
-            insere_aresta(vert, &ar);
+            v* end = insere_vertice(LV, &nv);
 
-           // printf("A sigla do vertice gerado eh: %s\n", nv.sigla);
-            insere_vertice(&nova_lista, &nv);
+            ar = cria_aresta(vert, end);
+            insere_aresta(vert, &ar);
         }
     } else {
-        *conjuntos_vazios_encontrados = *conjuntos_vazios_encontrados + 1;
-        //printf("NAO GEROU VERTICE, %d \n", *conjuntos_vazios_encontrados);
-        ;
+        int m;
+        for(m = 0; m < 5; m++){
+            if(strcmp(ST[m], vert->sigla) == 0){
+               /* puts(ST[m]);
+                puts(vert->sigla);
+                printf("ISOLOU\n");*/
+                flag_isolados[m] = 1;
+            }
+        }
     }
 
-    return &nova_lista;
+    //return LV;
 }
+
+v* encontra_duplicata(v *LV){
+    v *aux_busca_travado;
+    v *aux_busca_rolando;
+
+    aux_busca_travado = LV;
+    while(aux_busca_travado != NULL){
+        aux_busca_rolando = aux_busca_travado->prox;
+        while(aux_busca_rolando != NULL){
+            //printf("Comparou %s com %s.\n", aux_busca_travado->sigla, aux_busca_rolando->sigla);
+            if(strcmp(aux_busca_travado->sigla, aux_busca_rolando->sigla) == 0){
+                return aux_busca_rolando;
+            }
+        }
+    }
+    return NULL;
+}
+
 
 void remove_duplicata(v *LV){
     v *aux_busca_travado;
@@ -211,11 +224,16 @@ void remove_duplicata(v *LV){
         aux_busca_anterior = aux_busca_travado;
         aux_busca_rolando = aux_busca_travado->prox;
         while(aux_busca_rolando != NULL){
+            //printf("Comparou %s com %s.\n", aux_busca_travado->sigla, aux_busca_rolando->sigla);
             if(strcmp(aux_busca_travado->sigla, aux_busca_rolando->sigla) == 0){
+                //printf("Removeu.\n");
                 aux_busca_anterior->prox = aux_busca_rolando->prox;
+                aux_busca_rolando = aux_busca_rolando->prox;
+            } else {
+                aux_busca_anterior = aux_busca_anterior->prox;
+                aux_busca_rolando = aux_busca_rolando->prox;
             }
-            aux_busca_anterior = aux_busca_rolando;
-            aux_busca_rolando = aux_busca_rolando->prox;
+
         }
         aux_busca_travado = aux_busca_travado->prox;
     }
