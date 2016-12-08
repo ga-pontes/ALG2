@@ -19,6 +19,7 @@ int main(){
     int n;
     char tecla;
     FILE * teste = NULL;
+    int countTeste = 1;
     //Vetor de dimensoes
     lista_de_dimensao * lista_dimensoes;
     do{
@@ -53,7 +54,7 @@ int main(){
             printaAjuda();
             break;
         case '5':
-            teste = fopen("test.txt", "r");
+            teste = fopen("projetos.txt", "r");
             if(teste == NULL){
                 printf("Arquivo nulo");
                 return -1;

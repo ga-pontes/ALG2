@@ -70,7 +70,7 @@ lista_de_dimensao * registrarDados(FILE * fonte){
     }
     lista->siglas = malloc((totalAtribs + numDim)*sizeof(char *));
     for(i = 0; i < (totalAtribs + numDim); i++){
-        lista->siglas[i] = malloc(3*sizeof(char));
+        lista->siglas[i] = malloc(4*sizeof(char));
     }
     int indice = 0;
     int j;
@@ -82,9 +82,6 @@ lista_de_dimensao * registrarDados(FILE * fonte){
             indice++;
         }
     }
-
-    for(i = 0; i < totalAtribs+numDim; i++)
-        printf("Sigla: %s\n", lista->siglas[i]);
 
     lista->totalElementos = totalAtribs + numDim;
 
@@ -100,10 +97,10 @@ lista_de_dimensao * registrarDados(FILE * fonte){
 void recuperarDados(){
     FILE * arquivo = fopen("dados.bin", "rb");
     char bufferNome[16];
-    char bufferSigla[3];
+    char bufferSigla[4];
     int bufferNumAtrib;
     char bufferNomeAtributo[16];
-    char bufferSiglaAtributo[3];
+    char bufferSiglaAtributo[4];
     int bufferNvHierarquia;
     int i;
     dimensao d;
@@ -150,10 +147,10 @@ void recuperarDados(){
 void recuperarRegistroN(int n){
     FILE * arquivo = fopen("dados.bin", "rb");
     char bufferNome[16];
-    char bufferSigla[3];
+    char bufferSigla[4];
     int bufferNumAtrib;
     char bufferNomeAtributo[16];
-    char bufferSiglaAtributo[3];
+    char bufferSiglaAtributo[4];
     int bufferNvHierarquico;
     int i;
     dimensao d;
@@ -212,6 +209,7 @@ int salvarDados(dimensao * dimensoes, int numDim){
     }
     int i;
     char delimitador = '|';
+    //Escreve os dados da estrutura Dimensao um a um, para serem lidos posteriormente na mesma ordem.
     for(i = 0; i < numDim; i++){
         fwrite(&dimensoes[i].numAtributos, sizeof(dimensoes[i].numAtributos), 1, arquivo);
         fwrite(&dimensoes[i].nome, sizeof(dimensoes[i].nome), 1, arquivo);
