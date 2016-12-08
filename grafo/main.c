@@ -50,7 +50,7 @@ int main(){
                 fclose(teste);
                 printf("Teste carregado!");
             }
-            //bateria de testes;
+            break;
         }
 
     } while(tecla != '6');
