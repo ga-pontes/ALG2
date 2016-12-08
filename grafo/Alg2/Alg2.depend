@@ -1,32 +1,34 @@
 # depslib dependency file v1.0
-1481163113 source:c:\users\andre\desktop\alg2\grafo\g.c
+1480831451 source:c:\users\andre\desktop\alg2\grafo\g.c
 	"g.h"
 
-1481163113 c:\users\andre\desktop\alg2\grafo\g.h
+1480831442 c:\users\andre\desktop\alg2\grafo\g.h
 	<stdio.h>
 	<stdlib.h>
-	"dimensao.h"
 
+<<<<<<< HEAD
 1481176472 source:c:\users\andre\desktop\alg2\grafo\main.c
+=======
+1481084075 source:c:\users\andre\desktop\alg2\grafo\main.c
+>>>>>>> origin/master
 	"g.h"
 	"graphtodot.h"
 	"dimensao.h"
-	"arquivo.h"
 
-1481093961 source:c:\users\andre\desktop\alg2\grafo\graphtodot.c
+1481069668 source:c:\users\andre\desktop\alg2\grafo\graphtodot.c
 	"graphtodot.h"
 	<stdlib.h>
 
-1481093961 c:\users\andre\desktop\alg2\grafo\graphtodot.h
+1480829699 c:\users\andre\desktop\alg2\grafo\graphtodot.h
 	"g.h"
 	<stdio.h>
 
 1480829699 D
 
-1481105645 source:c:\users\gabriel pontes\documents\github\alg2\grafo\g.c
+1481177377 source:c:\users\gabriel pontes\documents\github\alg2\grafo\g.c
 	"g.h"
 
-1481104620 c:\users\gabriel pontes\documents\github\alg2\grafo\g.h
+1481176732 c:\users\gabriel pontes\documents\github\alg2\grafo\g.h
 	<stdio.h>
 	<stdlib.h>
 	"dimensao.h"
@@ -39,39 +41,41 @@
 	"g.h"
 	<stdio.h>
 
-1481105612 source:c:\users\gabriel pontes\documents\github\alg2\grafo\main.c
+1481177037 source:c:\users\gabriel pontes\documents\github\alg2\grafo\main.c
 	"g.h"
 	"graphtodot.h"
 	"dimensao.h"
+	"arquivo.h"
 
 1481083820 t.h"
 
+<<<<<<< HEAD
 1481177158 source:c:\users\andre\desktop\alg2\grafo\dimensao.c
+=======
+1481084042 source:c:\users\andre\desktop\alg2\grafo\dimensao.c
+>>>>>>> origin/master
 	"dimensao.h"
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
 
-1481168164 c:\users\andre\desktop\alg2\grafo\dimensao.h
+1481084008 c:\users\andre\desktop\alg2\grafo\dimensao.h
 
 1481084008 gin/master
 
-1481096318 c:\users\gabriel pontes\documents\github\alg2\grafo\dimensao.h
+1481164391 c:\users\gabriel pontes\documents\github\alg2\grafo\dimensao.h
 
-1481101051 source:c:\users\gabriel pontes\documents\github\alg2\grafo\dimensao.c
+1481172130 source:c:\users\gabriel pontes\documents\github\alg2\grafo\dimensao.c
 	"dimensao.h"
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
 
-1481175906 source:c:\users\andre\desktop\alg2\grafo\arquivo.c
+1481162583 c:\users\gabriel pontes\documents\github\alg2\grafo\arquivo.h
+	"dimensao.h"
+	<stdlib.h>
+	<stdio.h>
+
+1481164391 source:c:\users\gabriel pontes\documents\github\alg2\grafo\arquivo.c
 	"arquivo.h"
-	<stdlib.h>
-	<stdio.h>
-
-1481169149 c:\users\andre\desktop\alg2\grafo\arquivo.h
-	"dimensao.h"
-	<stdlib.h>
-	<stdio.h>
-	<string.h>
 
