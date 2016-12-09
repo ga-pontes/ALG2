@@ -36,6 +36,7 @@ int main(){
         printf("5) Executar Bateria de Testes.\n");
         printf("6) Sair\n");
         fflush(stdin);
+        char tecla2;
         scanf("%c", &tecla);
         switch(tecla){
         case '1':
@@ -59,15 +60,37 @@ int main(){
             printaAjuda();
             break;
         case '5':
-            teste = fopen("test.txt", "r");
+            printf("\n\nBateria de testes: selecione o teste que deseja executar: \n");
+            printf("1 - Centro de pesquisas.\n");
+            printf("2 - Gastos de hospital com produtos.\n");
+            printf("3 - Taxa de ocupacao em hospital.\n");
+            printf("4 - Projetos\n");
+            printf("Atencao! A geracao do grafo pode demorar um pouco.\n");
+            fflush(stdin);
+            scanf("%c", &tecla2);
+            switch(tecla2){
+            case '1':
+                teste = fopen("centro_pesquisas.txt", "rb");
+                break;
+            case '2':
+                teste = fopen("hospital_gastos_produtos.txt", "rb");
+                break;
+             case '3':
+                teste = fopen("hospital_rede_taxa_de_ocupacao.txt", "rb");
+                break;
+            case '4':
+                teste = fopen("projetos.txt", "rb");
+                break;
+            default: break;
+            }
             if(teste == NULL){
                 printf("Arquivo nulo");
                 return -1;
             } else {
                 lista_dimensoes = registrarDados(teste);
                 printf("%d\n", lista_dimensoes->totalElementos);
-                gerar_grafo_de_derivacao(lista_dimensoes);
-               // gera_grafo_de_dimensoes(lista_dimensoes);
+                //gerar_grafo_de_derivacao(lista_dimensoes);
+                gera_grafo_de_dimensoes(lista_dimensoes);
                 fclose(teste);
                 printf("Teste carregado!");
             }
