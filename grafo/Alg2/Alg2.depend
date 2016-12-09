@@ -7,7 +7,7 @@
 	<stdlib.h>
 	"dimensao.h"
 
-1481245264 source:c:\users\andre\desktop\alg2\grafo\main.c
+1481247068 source:c:\users\andre\desktop\alg2\grafo\main.c
 	"g.h"
 	"graphtodot.h"
 	"dimensao.h"
@@ -78,7 +78,7 @@
 	<stdlib.h>
 	<stdio.h>
 
-1481244773 source:c:\users\andre\desktop\alg2\grafo\arquivo.c
+1481246215 source:c:\users\andre\desktop\alg2\grafo\arquivo.c
 	"arquivo.h"
 	<stdlib.h>
 	<stdio.h>

@@ -14,7 +14,7 @@ lista_de_dimensao * registrarDados(FILE * fonte){
 
     //Coletando informações do usuario
     if(fonte == stdin){
-        printf("Digite o numero de dimensoes que o grafo possuirá. \n");
+        printf("Digite o numero de dimensoes que o grafo deve possuir. \n");
         fflush(fonte);
     }
     fscanf(fonte, "%d", &numDim);
@@ -49,7 +49,7 @@ lista_de_dimensao * registrarDados(FILE * fonte){
         //Coletando informações sobre atributos
         for(j = 0; j < numAtr; j++){
             if(fonte == stdin)
-                printf("Digite, em ordem crescente de hierarquia, o nome dos atributos dessa dimensão.\n");
+                printf("Digite, em ordem crescente de hierarquia, o nome dos atributos dessa dimensao.\n");
             if(fonte == stdin)
                 fflush(fonte);
             fgets(bufferLinha, 200, fonte);

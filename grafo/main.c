@@ -28,7 +28,7 @@ int main(){
         printf("2) Recuperar Dimensoes e Atributos Salvos\n");
         printf("3) Recuperar Registro de Numero N (comecando pelo 0)\n");
         printf("4) Ajuda\n");
-        printf("5) Executar bateria de testes.\n");
+        printf("5) Executar Bateria de Testes.\n");
         printf("6) Sair\n");
         fflush(stdin);
         scanf("%c", &tecla);
@@ -118,14 +118,10 @@ void printaAjuda(){
 
                 //pergunta e resposta 4
                 printf("4. O que devo fazer quando terminar de inserir todas as informações?\n");
-                printf("R) Basta aguardar enquanto o programa gera o grafo de derivacao e apresenta-o na tela.\n\n");
+                printf("R) O programa vai salvar os dados inseridos em arquivo e gerar um aquivo .DOT com o grafo gerado. A partir dai, sera possivel visualizar os registros salvos selecionando a opcao 2 do menu ou visualizar o grafo a partir do programa GVEdit.\n\n");
 
                  //pergunta e resposta 5
                 printf("5. Consigo recuperar os atributos e dimensoes que salvei no arquivo?\n");
                 printf("R) Sim, basta selecionar a opcao 2 no menu.\n\n");
-
-                 //pergunta e resposta 6
-                printf("6. Eh possivel gerar o grafo de derivacao apos ler o aquivo?\n");
-                printf("R) Sim, essa opcao aparecera depois que as dimensoes e atributos forem recuperados.\n\n");
 
 }
