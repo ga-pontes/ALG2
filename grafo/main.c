@@ -62,9 +62,8 @@ int main(){
         case '5':
             printf("\n\nBateria de testes: selecione o teste que deseja executar: \n");
             printf("1 - Produto.\n");
-            printf("2 - Gastos de hospital com produtos.\n");
+            printf("2 - Pesquisa.\n");
             printf("3 - Taxa de ocupacao em hospital.\n");
-            printf("4 - Projetos\n");
             printf("Atencao! A geracao do grafo pode demorar um pouco.\n");
             fflush(stdin);
             scanf("%c", &tecla2);
@@ -73,13 +72,10 @@ int main(){
                 teste = fopen("Produto.txt", "rb");
                 break;
             case '2':
-                teste = fopen("hospital_gastos_produtos.txt", "rb");
+                teste = fopen("projetos.txt", "rb");
                 break;
              case '3':
                 teste = fopen("hospital_rede_taxa_de_ocupacao.txt", "rb");
-                break;
-            case '4':
-                teste = fopen("projetos.txt", "rb");
                 break;
             default: break;
             }
