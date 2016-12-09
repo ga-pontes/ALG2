@@ -61,7 +61,7 @@ int main(){
             break;
         case '5':
             printf("\n\nBateria de testes: selecione o teste que deseja executar: \n");
-            printf("1 - Centro de pesquisas.\n");
+            printf("1 - Produto.\n");
             printf("2 - Gastos de hospital com produtos.\n");
             printf("3 - Taxa de ocupacao em hospital.\n");
             printf("4 - Projetos\n");
@@ -70,7 +70,7 @@ int main(){
             scanf("%c", &tecla2);
             switch(tecla2){
             case '1':
-                teste = fopen("centro_pesquisas.txt", "rb");
+                teste = fopen("Produto.txt", "rb");
                 break;
             case '2':
                 teste = fopen("hospital_gastos_produtos.txt", "rb");
