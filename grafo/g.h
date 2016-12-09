@@ -5,9 +5,11 @@
 #include <stdlib.h>
 #include "dimensao.h"
 
+/// ESTRUTURA DO ALGORITMO DETALHADA NO RELATÓRIO
+/// FUNÇOES DESCRITAS EM "g.c"
 struct lista_de_arestas;
 
-//DEFINIÇÃO DO VÉRTICE DO GRAFO
+/// DO VÉRTICE DO GRAFO
 typedef struct vertice {
     int i; //EXEMPLO DE CONTEÚDO
 
@@ -19,12 +21,7 @@ typedef struct vertice {
     struct dimensao *dim;
     int nvl_de_cada_dimensao[10];
 
-
-
-    ///"Ajudantes" para o caso em que
-    /// deseja-se combinar somente as dimensões
     int dimensoes_disponiveis[100];
-    //int qd_atual;
 } v;
 
 typedef struct aresta {
@@ -42,24 +39,25 @@ typedef struct lista_de_vertices{
     v* inicio; //INICIO DA LISTA
 } V;
 
+
+
+
 //GRAFO(LISTA DE VERTICES E LISTAS DE ARESTAS)
 typedef struct GRAFO{
     V listaV;
 } G;
 
 
-int estaVazioV(V*);
+int estaVazioV(V *LV);
 v cria_vertice(int n, char *s, dimensao *dim);
-v* insere_vertice(V*, v*);
-a cria_aresta(v* origem, v* destino);
-int estaVazioA(A*);
-void insere_aresta(v*, a*);
-V* gera_permutacao(v *vt);
-int fatorial(int a);
-void GG(G *GRAFO);
+v* insere_vertice(struct lista_de_vertices *LV, v *novo);
+a cria_aresta(v* origem, v *destino);
+int estaVazioA(A *LA);
+void insere_aresta(v *origem, a *novo);
 void gerarSigladoVertice(v *vert, int qd);
-void permuta_dim(V* LV, v *vert, int qd, char **ST, int flag_isolados[], int total_de_elementos);
+void gerarSigladoVerticeD(v *vert, int qd);
+void permuta_dim(V *LV, v *vert, int qd, char **ST, int flag_isolados[], int total_de_elementos);
 v* cria_arestas_das_isoladas(V *LV, int qd, char **ST, int total_de_elementos, dimensao *dimensoes);
-v* encontra_duplicata(v *LV);
-void remove_duplicata(v *LV);
+v* cria_arestas_das_isoladas(V *LV, int qd, char **ST, int total_de_elementos, dimensao *dimensoes);
+void gera_grafo_de_dimensoes(lista_de_dimensao *LD);
 #endif
