@@ -5,7 +5,7 @@
     Descrição: obtém do teclado do usuário as informações necessarias para a geração do grafo de derivação.
     Isto é, numero de dimensoes, numero de atributos, nome das dimensoes e nome dos atributos.
     parâmetros: nenhum.
-    retorno: nenhum.
+    retorno: lista de dimensoes.
 */
 lista_de_dimensao * registrarDados(FILE * fonte){
     int numDim, numAtr;
@@ -91,7 +91,6 @@ lista_de_dimensao * registrarDados(FILE * fonte){
 /*Função: recuperarDados
     Descrição:
     Permite ao usuario printar na tela todos os dados salvos em modo binario sobre as dimensoes e atributos.
-    parâmetros: fonte. Stdin para entrada por teclado ou pode ser arquivo de teste.
     retorno: nenhum.
 */
 void recuperarDados(){
@@ -106,6 +105,8 @@ void recuperarDados(){
     dimensao d;
     char sentinela;
     int counter = 0;
+
+    //Le os dados campo a campo e os guarda em buffers.
     while(!feof(arquivo)){
         if(counter != 0)
             fread(&sentinela, 1, 1, arquivo);
@@ -162,11 +163,15 @@ void recuperarRegistroN(int n){
         if(sentinela != '|')
             printf("Atencao! Leitura de delimitador de fim de registro incorreto.\n");
 
-        //Leitura do numero de atributos do registro de dimensao
+        /*Leitura do numero de atributos do registro de dimensao. O tamanho do registro é variavel.
+        ** Entretanto, conhecido o numero de atributos, e possivel "pular" o registro com um fseek
+        */
         if(!fread(&bufferNumAtrib, sizeof(bufferNumAtrib), 1, arquivo))
             break;
         d.numAtributos = bufferNumAtrib;
 
+
+        //Verifica se este é o registro procurado
         if(counter == n){
             fread(&bufferNome, sizeof(bufferNome), 1, arquivo);
             fread(&bufferSigla, sizeof(bufferSigla), 1, arquivo);
@@ -199,7 +204,7 @@ void recuperarRegistroN(int n){
     Descrição:
     Salva os dados fornecidos pelo usuario em um arquivo em modo binario.
     parâmetros: vetor de dimensoes.
-    retorno: nenhum.
+    retorno: status de sucesso ou não.
 */
 int salvarDados(dimensao * dimensoes, int numDim){
     FILE * arquivo = fopen("dados.bin", "wb");
@@ -210,6 +215,7 @@ int salvarDados(dimensao * dimensoes, int numDim){
     int i;
     char delimitador = '|';
     //Escreve os dados da estrutura Dimensao um a um, para serem lidos posteriormente na mesma ordem.
+    //Há um delimitador de registros no final.
     for(i = 0; i < numDim; i++){
         fwrite(&dimensoes[i].numAtributos, sizeof(dimensoes[i].numAtributos), 1, arquivo);
         fwrite(&dimensoes[i].nome, sizeof(dimensoes[i].nome), 1, arquivo);

@@ -17,7 +17,7 @@ int main(){
 
     return 0;*/
     int n;
-    char tecla;
+    char tecla, tecla2;
     FILE * teste = NULL;
     int countTeste = 1;
     //Vetor de dimensoes
@@ -54,7 +54,29 @@ int main(){
             printaAjuda();
             break;
         case '5':
-            teste = fopen("projetos.txt", "r");
+            printf("\n\nBateria de testes: selecione o teste que deseja executar: \n");
+            printf("1 - Centro de pesquisas.\n");
+            printf("2 - Gastos de hospital com produtos.\n");
+            printf("3 - Taxa de ocupacao em hospital.\n");
+            printf("4 - Projetos\n");
+            printf("Atencao! A geracao do grafo pode demorar um pouco.\n");
+            fflush(stdin);
+            scanf("%c", &tecla2);
+            switch(tecla2){
+            case '1':
+                teste = fopen("centro_pesquisas.txt", "rb");
+                break;
+            case '2':
+                teste = fopen("hospital_gastos_produtos.txt", "rb");
+                break;
+             case '3':
+                teste = fopen("hospital_rede_taxa_de_ocupacao.txt", "rb");
+                break;
+            case '4':
+                teste = fopen("projetos.txt", "rb");
+                break;
+            default: break;
+            }
             if(teste == NULL){
                 printf("Arquivo nulo");
                 return -1;
@@ -64,7 +86,10 @@ int main(){
                 gerar_grafo_de_derivacao(lista_dimensoes);
                // gera_grafo_de_dimensoes(lista_dimensoes);
                 fclose(teste);
-                printf("Teste carregado!");
+                printf("Teste carregado!\n");
+                printf("Selecionando a opcao 2, voce pode ver a organizacao dos registros.\n");
+                printf("Foi gerado um arquivo .dot que pode ser usado para visualizar o grafo usando o programa gvedit para este teste.\n");
+                printf("O arquivo encontra-se no diretorio do projeto.\n\n");
             }
             break;
         }
