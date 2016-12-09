@@ -87,6 +87,7 @@ char * gerarSiglaAtrib(atributo * atributos, int n, char nome[16], int ID){
             }
         } else {
             //Condicao de parada
+            //Insere um numero de identificacao relativo ao registro para evitar IDs duplicados.
             siglaCorreta = 1;
             sigla[2] = ID + '0';
             return sigla;
