@@ -1,6 +1,12 @@
+/// GABRIEL PONTES 9313030
+/// ANDRÉ DAHER BENEDETTI 9622772
+/// NATHALIA MORENO PEREIRA 9266560
+/// RAFAEL YONEZAWA DE MELLO 9313026
+
 #include "g.h"
 
 /// VERIFICA SE A LISTA DE VERTICES ESTA VAZIA
+/// LV é uma lista de vértices
 int estaVazioV(V *LV){
     if(LV->inicio == NULL){
         //printf("LV vazia.\n");
@@ -11,6 +17,9 @@ int estaVazioV(V *LV){
 }
 
 /// FUNÇÃO PARA CRIAR NOVO VÉRTICE
+/// n é um indice para o vertice
+/// s é a sigla do vértice
+/// dim é o conjunto de dimensoes
 v cria_vertice(int n, char *s, dimensao *dim){
     v novo;
     novo.i = n;
@@ -34,7 +43,9 @@ v cria_vertice(int n, char *s, dimensao *dim){
     return novo;
 }
 
-//INSERE NOVO VERTICE NA LISTA DE VERTICES
+/// INSERE NOVO VERTICE NA LISTA DE VERTICES
+/// LV = LISTA DE VERTICES
+/// V = VERTICE A SER INSERIDO
 v* insere_vertice(struct lista_de_vertices *LV, v *novo){
     v *aux;
     if(estaVazioV(LV)){
@@ -56,7 +67,9 @@ v* insere_vertice(struct lista_de_vertices *LV, v *novo){
     //printf("Vertice %d inserido no grafo.\n", novo->i);
 }
 
-//FUNÇÃO PARA CRIAR UMA NOVA ARESTA
+/// FUNÇÃO PARA CRIAR UMA NOVA ARESTA
+/// ORIGEM É O VERTICE DE ORIGEM DA ARESTA
+/// DESTINO É O VERTICE DE DESTINO DA ARESTA
 a cria_aresta(v* origem, v *destino){
     a novo;
     novo.prox = NULL;
@@ -66,7 +79,7 @@ a cria_aresta(v* origem, v *destino){
     return novo;
 }
 
-//VERIFICA SE A LISTA DE ARESTA ESTA VAZIA
+/// VERIFICA SE A LISTA DE ARESTAS ESTA VAZIA
 int estaVazioA(A *LA){
     if(LA->inicio == NULL){
         return 1;
@@ -74,7 +87,7 @@ int estaVazioA(A *LA){
     return 0;
 }
 
-//FUNÇÃO PARA INSERIR UMA ARESTA NUMA LISTA
+/// FUNÇÃO PARA INSERIR UMA ARESTA NUMA LISTA
 void insere_aresta(v *origem, a *novo){
     A* LA = origem->A;
     if(estaVazioA(LA)){
@@ -112,6 +125,8 @@ void gerarSigladoVertice(v *vert, int qd){
     strcpy(vert->sigla, sigla);
 }
 
+/// FUNÇÃO QUE GERA SIGLA DOS VERTICES
+/// QUE CONTÉM SOMENTE DIMENSÕES
 void gerarSigladoVerticeD(v *vert, int qd){
     char sigla[100];
     sigla[0] = '\0';
@@ -125,7 +140,7 @@ void gerarSigladoVerticeD(v *vert, int qd){
 }
 
 /// FUNÇÃO PARA GERAR AS COMBINAÇÕES "FILHAS"
-/// DE UM VÉRICE
+/// DE UM VÉRICE DE DIMENSOES E HIERARQUIAS
 /// LV = LISTA A SER ADD O VÉRTICE
 /// VERTICE A SER RECOMBINADO
 /// qd = QNT TOTAL DE DIMENSOES + ATRIBUTOS
@@ -172,6 +187,8 @@ void permuta_dim(V *LV, v *vert, int qd, char **ST, int flag_isolados[], int tot
     //return LV;
 }
 
+/// FUNÇÃO QUE APONTAS AS ARESTAS ISOLADAS
+/// PARA OUTRAS ARESTAS ISOLADAS E PARA ALL.
 v* cria_arestas_das_isoladas(V *LV, int qd, char **ST, int total_de_elementos, dimensao *dimensoes){
     dimensao *D_aux;
     v *buscador_atual;
@@ -261,50 +278,7 @@ v* cria_arestas_das_isoladas(V *LV, int qd, char **ST, int total_de_elementos, d
     return all;
 }
 
-v* encontra_duplicata(v *LV){
-    v *aux_busca_travado;
-    v *aux_busca_rolando;
-
-    aux_busca_travado = LV;
-    while(aux_busca_travado != NULL){
-        aux_busca_rolando = aux_busca_travado->prox;
-        while(aux_busca_rolando != NULL){
-            //printf("Comparou %s com %s.\n", aux_busca_travado->sigla, aux_busca_rolando->sigla);
-            if(strcmp(aux_busca_travado->sigla, aux_busca_rolando->sigla) == 0){
-                return aux_busca_rolando;
-            }
-        }
-    }
-    return NULL;
-}
-
-/// FUNÇÃO QUE REMOVE TODOS OS VÉRTICE DUPLICADOS
-/// SEM TRATAR ARESTAS
-void remove_duplicata(v *LV){
-    v *aux_busca_travado;
-    v *aux_busca_rolando;
-    v *aux_busca_anterior;
-
-    aux_busca_travado = LV;
-    while(aux_busca_travado != NULL){
-        aux_busca_anterior = aux_busca_travado;
-        aux_busca_rolando = aux_busca_travado->prox;
-        while(aux_busca_rolando != NULL){
-            //printf("Comparou %s com %s.\n", aux_busca_travado->sigla, aux_busca_rolando->sigla);
-            if(strcmp(aux_busca_travado->sigla, aux_busca_rolando->sigla) == 0){
-                //printf("Removeu.\n");
-                aux_busca_anterior->prox = aux_busca_rolando->prox;
-                aux_busca_rolando = aux_busca_rolando->prox;
-            } else {
-                aux_busca_anterior = aux_busca_anterior->prox;
-                aux_busca_rolando = aux_busca_rolando->prox;
-            }
-
-        }
-        aux_busca_travado = aux_busca_travado->prox;
-    }
-}
-
+///FUNÇÃO QUE GERA O GRAFO DE DERIVAÇÃO DAS HIERARQUIAS
 void gerar_grafo_de_derivacao(lista_de_dimensao *LD){
     /*int qd = LD->tamanho;*/
     //int total_de_elementos;// = LD->TOTAL
@@ -348,7 +322,6 @@ void gerar_grafo_de_derivacao(lista_de_dimensao *LD){
 
         //gera "filhos" do vértice atual no final da lista
         printf("gerando filhos do vert %s\n", aux_v->sigla);
-
         permuta_dim(&nova_lista, aux_v, LD->tamanho, LD->siglas, flag_isolados, LD->totalElementos);
         printf("gerou.\n");
 
@@ -388,6 +361,7 @@ void gerar_grafo_de_derivacao(lista_de_dimensao *LD){
         generateDot(&vert);
 }
 
+/// FUNÇAO QUE GERA O GRAFO DOS CORTES DAS DIMENSOES
 void gera_grafo_de_dimensoes(lista_de_dimensao *LD){
     lista_de_dimensao NOVA_LISTA;
     int i;

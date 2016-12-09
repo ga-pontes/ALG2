@@ -1,3 +1,8 @@
+/// GABRIEL PONTES 9313030
+/// ANDRÉ DAHER BENEDETTI 9622772
+/// NATHALIA MORENO PEREIRA 9266560
+/// RAFAEL YONEZAWA DE MELLO 9313026
+
 #include "arquivo.h"
 #include <stdlib.h>
 #include <stdio.h>

@@ -1,3 +1,8 @@
+/// GABRIEL PONTES 9313030
+/// ANDRÉ DAHER BENEDETTI 9622772
+/// NATHALIA MORENO PEREIRA 9266560
+/// RAFAEL YONEZAWA DE MELLO 9313026
+
 #include "g.h"
 #include "graphtodot.h"
 #include "dimensao.h"
@@ -54,7 +59,7 @@ int main(){
             printaAjuda();
             break;
         case '5':
-            teste = fopen("projetos.txt", "r");
+            teste = fopen("test.txt", "r");
             if(teste == NULL){
                 printf("Arquivo nulo");
                 return -1;
